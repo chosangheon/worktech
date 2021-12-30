@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mailMapper">
+	<select id="getMailCount" resultType="_int">
+  		select count(*)
+  		from EML
+  		where board_status = 0
+  	</select>
+	<select id="selectReList" resultMap = "mailResultSet">
+		select *
+  		from EML
+  			join member on(board_writer = id)
+  		where board_status = 'Y'
+  		order by board_id desc
+	</select>
+	
+	<resultMap type="Mail" id="mailResultSet">
+  		<id column="EML_NO" property="emlNo"/>
+  		<result column="EML_NM" property="emlNM"/>
+  		<result column="EML_CNT" property="emlCNT"/>
+  		<result column="EML_FL_NM" property="emlFLNM"/>
+  		<result column="EML_FL_RNM" property="emlFLRNM"/>
+  		<result column="EML_PL_CRS" property="emlPLCRS"/>
+  		<result column="EML_TIME" property="emlTime"/>
+  		<result column="EML_SND" property="emlSnd"/>
+  		<result column="EML_MEM" property="emlMem"/>
+  		<result column="EML_STATUS" property="emlStatus"/>
+  	</resultMap>
+  	
+  	
+  	
+  	
+  	
+  	
+
+
+
+
+
+
+
+
+
+</mapper>

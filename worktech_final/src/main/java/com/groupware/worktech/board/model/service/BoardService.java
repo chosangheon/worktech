@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.groupware.worktech.board.model.dao.BoardDAO;
 import com.groupware.worktech.board.model.vo.Board;
 import com.groupware.worktech.board.model.vo.BoardFile;
+import com.groupware.worktech.board.model.vo.Reply;
 import com.groupware.worktech.common.PageInfo;
 
 @Service("bService")
@@ -165,21 +166,20 @@ public class BoardService {
 		return bDAO.getCategoryListCount(sqlSession, category);
 	}
 
-	public Board selectCommonBoard(int bNo) {
-		int result = bDAO.addReadCount(sqlSession, bNo);
-		
+	public Board selectCommonBoard(int bNo, String upd) {
 		Board b = null;
-		if(result > 0) {
+		if(upd != null && upd.equals("Y")) {
 			b = bDAO.selectCommonBoard(sqlSession, bNo);
+		} else {
+			int result = bDAO.addReadCount(sqlSession, bNo);
+			
+			if(result > 0) {
+				b = bDAO.selectCommonBoard(sqlSession, bNo);
+			}
 		}
 		
 		return b;
 	}
-
-	public int deleteCommonBoardFile(int fNo) {
-		return bDAO.deleteNoticeFile(sqlSession, fNo);
-	}
-
 
 	public int updateCommonBoard(Board b) {
 		int result = bDAO.updateCommonBoard(sqlSession, b);
@@ -193,7 +193,26 @@ public class BoardService {
 		return result;
 	}
 
-	
+	public int getCommonSearchListCount(HashMap<String, Object> searchMap) {
+		return bDAO.getCommonSearchListCount(sqlSession, searchMap);
+	}
+
+	public ArrayList<Board> selectCommonSearchList(HashMap<String, Object> searchListMap) {
+		return bDAO.selectCommonSearchList(sqlSession, searchListMap);
+	}
+
+	public int insertCommonReply(Reply r) {
+		return bDAO.insertCommonReply(sqlSession, r);
+	}
+
+	public ArrayList<Reply> selectCommonReplyList(int bNo) {
+		return bDAO.selectCommonReplyList(sqlSession, bNo);
+	}
+
+	public int deleteCommonReply(int rNo) {
+		return bDAO.deleteCommonReply(sqlSession, rNo);
+	}
+
 
 
 

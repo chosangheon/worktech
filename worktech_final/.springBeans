@@ -7,7 +7,22 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+<<<<<<< HEAD
 	</configs>
+=======
+		<config>src/main/resources/root-context.xml</config>
+		<config>src/main/resources/spring-security.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/admin-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/calendar-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/adbook-context.xml</config>
+	</configs>
+	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/aspect-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/member-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/board-context.xml</config>
+	</autoconfigs>
+>>>>>>> 8ba79d9189f10974c7c25a7a3c97dbc645cd18be
 	<configSets>
 	</configSets>
 </beansProjectDescription>

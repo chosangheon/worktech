@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.groupware.worktech.board.model.exception.BoardException;
 import com.groupware.worktech.board.model.service.BoardService;
 import com.groupware.worktech.board.model.vo.Board;
 import com.groupware.worktech.board.model.vo.BoardFile;
+import com.groupware.worktech.board.model.vo.Reply;
 import com.groupware.worktech.common.PageInfo;
 import com.groupware.worktech.common.Pagination;
 
@@ -63,12 +69,6 @@ public class BoardController {
 		}
 		
 		return "commonBoardList";
-	}
-	
-	@RequestMapping("commonCategoryList.bo")
-	public String commonCategoryList() {
-		
-		return null;
 	}
 	
 	@RequestMapping("cinsertView.bo")
@@ -154,12 +154,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping("cdetail.bo")
-	public String commonBoardDetail(@RequestParam("bNo") int bNo, @RequestParam("page") int page, Model model) {
-		Board b = bService.selectCommonBoard(bNo);
+	public String commonBoardDetail(@RequestParam("bNo") int bNo, @RequestParam(value="page", required=false) Integer page, 
+									@RequestParam(value="category", required=false) Integer category, 
+									@RequestParam(value="upd", required=false) String upd, 
+									@RequestParam(value="searchCategory", required=false) String searchCategory,
+									@RequestParam(value="searchValue", required=false) String searchValue, Model model) {
+		Board b = bService.selectCommonBoard(bNo, upd);
 		
 		if(b != null) {
 			model.addAttribute("b", b);
 			model.addAttribute("page", page);
+			model.addAttribute("category", category);
+			model.addAttribute("searchCategory", searchCategory);
+			model.addAttribute("searchValue", searchValue);
 		} else {
 			throw new BoardException("게시글 상세 조회에 실패하였습니다.");
 		}
@@ -168,8 +175,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping("cupdateView.bo")
-	public String commonBoardUpdateView(@RequestParam("bNo") int bNo, Model model) {
-		Board b = bService.selectCommonBoard(bNo);
+	public String commonBoardUpdateView(@RequestParam("bNo") int bNo, @RequestParam("upd") String upd, Model model) {
+		Board b = bService.selectCommonBoard(bNo, upd);
 		
 		model.addAttribute("b", b);
 		
@@ -177,9 +184,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping("cupdate.bo")
-	public String commonBoardUpdate(@ModelAttribute Board b, @RequestParam("reloadFile") MultipartFile[] reloadFile, @RequestParam(value="fNo", required=false) ArrayList<Integer> fNoes, HttpServletRequest request, Model model) {
+	public String commonBoardUpdate(@ModelAttribute Board b, @RequestParam("reloadFile") MultipartFile[] reloadFile, @RequestParam(value="fNo", required=false) ArrayList<Integer> fNoes, @RequestParam("upd") String upd, HttpServletRequest request, Model model) {
 		if(fNoes != null && !fNoes.isEmpty()) {
-			ArrayList<BoardFile> fileList = bService.selectCommonBoard(b.getbNo()).getFileList();
+			ArrayList<BoardFile> fileList = bService.selectCommonBoard(b.getbNo(), upd).getFileList();
 			
 			for(int i = 0; i < fileList.size(); i++) {
 				int fNo = fileList.get(i).getfNo();
@@ -187,7 +194,7 @@ public class BoardController {
 				if(!fNoes.contains(fNo)) {
 					deleteFile(fileList.get(i).getfRname(), request);
 					
-					int result = bService.deleteCommonBoardFile(fNo);
+					int result = bService.deleteNoticeFile(fNo);
 					
 					if(result <= 0) {
 						throw new BoardException("첨부 파일 삭제에 실패하였습니다.");
@@ -219,10 +226,10 @@ public class BoardController {
 		int result = bService.updateCommonBoard(b);
 		
 		if(result > 0) {
-			Board updateBoard = bService.selectCommonBoard(b.getbNo());
+			Board updateBoard = bService.selectCommonBoard(b.getbNo(), upd);
 			model.addAttribute("b", updateBoard);
 			
-			return "commonBoardDetail";
+			return "redirect:cdetail.bo?bNo=" + b.getbNo() + "&upd=Y";
 		} else {
 			throw new BoardException("게시글 수정에 실패하였습니다.");
 		}
@@ -236,6 +243,111 @@ public class BoardController {
 		
 		if(f.exists()) {
 			f.delete();
+		}
+	}
+	
+	@RequestMapping("commonDelete.bo")
+	public String deleteCommonBoard(@RequestParam("bNo") int bNo, Model model) {
+		Board b = bService.selectCommonBoard(bNo, "Y");
+		
+		ArrayList<BoardFile> fileList = b.getFileList();
+		
+		if(fileList != null && fileList.get(0).getfRname() != null) {
+			for(int i = 0; i < fileList.size(); i++) {
+				int result = bService.deleteNoticeFile(fileList.get(i).getfNo());
+				
+				if(result < 0) {
+					throw new BoardException("첨부 파일 삭제에 실패하였습니다.");
+				}
+			}
+		}
+		
+		
+		int result = bService.deleteNotice(bNo);
+		
+		if(result > 0) {
+			return "redirect:commonList.bo";
+		} else {
+			throw new BoardException("게시글 삭제에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("searchCommon.bo")
+	public String searchCommonBoard(@RequestParam("searchCategory") String searchCategory, @RequestParam("searchValue") String searchValue, 
+									@RequestParam(value="page", required=false) Integer page, @RequestParam(value="category", required=false) Integer category, Model model) {
+		int currentPage = 1;
+		
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		HashMap<String, Object> searchCountMap = new HashMap<String, Object>();
+		searchCountMap.put("searchCategory", searchCategory);
+		searchCountMap.put("searchValue", searchValue);
+		searchCountMap.put("category", category);
+		
+		int listCount = bService.getCommonSearchListCount(searchCountMap);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		HashMap<String, Object> searchListMap = new HashMap<String, Object>();
+		searchListMap.put("pi", pi);
+		searchListMap.put("searchCategory", searchCategory);
+		searchListMap.put("searchValue", searchValue);
+		searchListMap.put("category", category);
+		
+		ArrayList<Board> list = bService.selectCommonSearchList(searchListMap);
+		
+		if(list != null) {
+			model.addAttribute("list", list);
+			model.addAttribute("searchCategory", searchCategory);
+			model.addAttribute("searchValue", searchValue);
+			model.addAttribute("pi", pi);
+			model.addAttribute("category", category);
+		}
+		
+		return "commonBoardList";
+	}
+	
+	@RequestMapping("addCommonReply.bo")
+	@ResponseBody
+	public String insertCommonReply(@ModelAttribute Reply r, Model model) {
+		int result = bService.insertCommonReply(r);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new BoardException("댓글 등록에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("commonReplyList.bo")
+	public void commonReplyList(@RequestParam("bNo") int bNo, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		
+		ArrayList<Reply> list = bService.selectCommonReplyList(bNo);
+		
+		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		
+		Gson gson = gb.create();
+		
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("deleteCommonReply.bo")
+	public String deleteCommonReply(@RequestParam("bNo") int bNo, @RequestParam("rNo") int rNo, Model model) {
+		int result = bService.deleteCommonReply(rNo);
+		
+		if(result > 0) {
+			return "redirect:cdetail.bo?bNo=" + bNo;
+		} else {
+			throw new BoardException("댓글 삭제에 실패하였습니다.");
 		}
 	}
 }

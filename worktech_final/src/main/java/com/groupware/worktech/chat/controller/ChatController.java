@@ -1,7 +1,11 @@
 package com.groupware.worktech.chat.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,29 +13,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.groupware.worktech.chat.model.exception.ChatException;
+import com.groupware.worktech.chat.model.service.ChatService;
+import com.groupware.worktech.chat.model.vo.ChatRoom;
 import com.groupware.worktech.member.model.vo.Member;
 
-import lombok.extern.log4j.Log4j;
-
 @Controller
-@Log4j
 public class ChatController {
 	
-	private Logger log = LoggerFactory.getLogger(ChatController.class);
+	@Autowired
+	private ChatService cService;
 	
-	@RequestMapping(value="/chatting.ct", method=RequestMethod.GET)
-	public ModelAndView chat(ModelAndView mv) {
+	@RequestMapping("chatView.ct")
+	public String chatView(Model model, HttpSession session) {
+		String mNo = ((Member)session.getAttribute("loginUser")).getmNo();
 		
-		mv.setViewName("chatMessage");
+		ArrayList<ChatRoom> list = cService.selectChatList(mNo);
 		
-//		Member user = (Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Member user = new Member("100000", "ww.worktech", "강건강", "0000", "사원", null, null, null, "USRR", 100, null, "Y");
+		if(list != null) {
+			for(ChatRoom c : list) {
+				String date = new SimpleDateFormat("yyyy-MM-dd").format(c.getSendTime());
+				String time = new SimpleDateFormat("HH:mm").format(c.getSendTime());
+				
+				c.setDate(date);
+				c.setTime(time);
+			}
+			
+			model.addAttribute("list", list);
+			return "chatList";
+		} else {
+			throw new ChatException("채팅 목록 조회에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("chatDetail.ct")
+	public String chatDetail(Model model) {
 		
-		log.info("==================================");
-		log.info("@ChatController, GET Chat / Username : " + user.getName());
-		
-		mv.addObject("name", user.getName());
-		
-		return mv;
+		return "chatMessage";
+	}
+	
+	@RequestMapping("addChatView.ct")
+	public String addChatView() {
+		return "insertChatView";
 	}
 }

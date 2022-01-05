@@ -29,10 +29,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-<<<<<<< HEAD
 
-=======
-	
 	<!-- 멤버 관련 -->
 	<servlet>
 		<servlet-name>memberServlet</servlet-name>
@@ -99,5 +96,5 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
->>>>>>> a15cf4da209475077c158735934fe89c57256412
+	
 </web-app>

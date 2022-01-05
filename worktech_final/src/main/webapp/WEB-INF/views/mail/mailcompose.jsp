@@ -93,7 +93,7 @@
 												</div>
 											</div>
 										</div>
-
+										<form action="sendmail.mail" method="post" enctype="Multipart/form-data">
 										<div class="col-md-10">
 											<div class="card">
 												<div class="card-body">
@@ -122,7 +122,7 @@
 														<label
 															class="col-form-label text-md-right col-12 col-md-3 col-lg-1">첨부파일</label>
 														<div class="col-sm-12 col-md-9">
-															<input type="file" class="form-control">
+															<input type="file" class="form-control" name="uploadFile">
 														</div>
 													</div>
 													<div class="form-group row mb-4">
@@ -137,7 +137,7 @@
 												<!-- 										</div> -->
 											</div>
 										</div>
-
+										</form>
 										<!--                   		</div> -->
 
 									</div>

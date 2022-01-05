@@ -36,7 +36,7 @@
           <div class="section-header">
             <h1>수신 메일함</h1>
             <div class="section-header-button">
-              <a href="features-post-create.html" class="btn btn-primary">메일 보내기</a>
+              <a href="location.href='enrollView.me" class="btn btn-primary">메일 보내기</a>
             </div>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="#">메일함</a></div>

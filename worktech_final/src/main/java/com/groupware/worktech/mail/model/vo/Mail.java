@@ -1,122 +1,221 @@
 package com.groupware.worktech.mail.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class Mail {
-	private int emlNo;				// 편지 번호
-	private String emlNM;			// 제목
-	private String emlCNT;			// 내용
-	private String emlFLNM;			// 원본 파일명
-	private String emlFLRNM;		// 변경 파일명
-	private String emlPLCRS;		// 파일경로
-	private Date emlTime;			// 시간
-	private String emlSnd;			// 상대방
-	private int emlMem;				// 사용자
-	private int emlStatus;			// 메일 상태 : 0/삭제안됨 1/삭제   / 2 영구삭제   3/ 수신     4/ 발신
+
+	private int mailNo;
+	private String receiveEmp; // 받는 사람
+	private String etype; // 외부, 내부
+	private String etitle;
+	private String econtent;
+	private String estatus;
+	private Timestamp sDate; // 보낸 시간
+	private String mNo;
+	private String senderMailId; // 보낸 사람 메일 주소
+	private String senderName;
+	private String receiverName; // 받는 사람 이름
+	private ArrayList<MailFile> mailFileList;
+	private ArrayList<MailSR> mailSRList; 
+	private Timestamp receiverRTime; // 읽은 시간
 	
-	public Mail() {}
+	public Timestamp getReceiverRTime() {
+		return receiverRTime;
+	}
 
-	public Mail(int emlNo, String emlNM, String emlCNT, String emlFLNM, String emlFLRNM, String emlPLCRS, Date emlTime,
-			String emlSnd, int emlMem, int emlStatus) {
+	public void setReceiverRTime(Timestamp receiverRTime) {
+		this.receiverRTime = receiverRTime;
+	}
+
+	public Mail(int mailNo, String receiveEmp, String etype, String etitle, String econtent, String estatus,
+			Timestamp sDate, String mNo, String senderMailId, String senderName, String receiverName,
+			ArrayList<MailFile> mailFileList, ArrayList<MailSR> mailSRList, Timestamp receiverRTime) {
 		super();
-		this.emlNo = emlNo;
-		this.emlNM = emlNM;
-		this.emlCNT = emlCNT;
-		this.emlFLNM = emlFLNM;
-		this.emlFLRNM = emlFLRNM;
-		this.emlPLCRS = emlPLCRS;
-		this.emlTime = emlTime;
-		this.emlSnd = emlSnd;
-		this.emlMem = emlMem;
-		this.emlStatus = emlStatus;
+		this.mailNo = mailNo;
+		this.receiveEmp = receiveEmp;
+		this.etype = etype;
+		this.etitle = etitle;
+		this.econtent = econtent;
+		this.estatus = estatus;
+		this.sDate = sDate;
+		this.mNo = mNo;
+		this.senderMailId = senderMailId;
+		this.senderName = senderName;
+		this.receiverName = receiverName;
+		this.mailFileList = mailFileList;
+		this.mailSRList = mailSRList;
+		this.receiverRTime = receiverRTime;
 	}
 
-	public int getEmlNo() {
-		return emlNo;
+	public Mail() {}
+	
+	public Mail(int mailNo, String receiveEmp, String etype, String etitle, String econtent, String estatus,
+			Timestamp sDate, String senderMailId, String senderName, ArrayList<MailFile> mailFileList) {
+		super();
+		this.mailNo = mailNo;
+		this.receiveEmp = receiveEmp;
+		this.etype = etype;
+		this.etitle = etitle;
+		this.econtent = econtent;
+		this.estatus = estatus;
+		this.sDate = sDate;
+		this.senderMailId = senderMailId;
+		this.senderName = senderName;
+		this.mailFileList = mailFileList;
 	}
 
-	public void setEmlNo(int emlNo) {
-		this.emlNo = emlNo;
+	public String getMNo() {
+		return mNo;
 	}
 
-	public String getEmlNM() {
-		return emlNM;
+	public void setMNo(String mNo) {
+		this.mNo = mNo;
+	}
+	
+	
+
+	public Mail(int mailNo, String receiveEmp, String etype, String etitle, String econtent, String estatus,
+			Timestamp sDate, String mNo, String senderMailId, String senderName,
+			ArrayList<MailFile> mailFileList) {
+		super();
+		this.mailNo = mailNo;
+		this.receiveEmp = receiveEmp;
+		this.etype = etype;
+		this.etitle = etitle;
+		this.econtent = econtent;
+		this.estatus = estatus;
+		this.sDate = sDate;
+		this.mNo = mNo;
+		this.senderMailId = senderMailId;
+		this.senderName = senderName;
+		this.mailFileList = mailFileList;
 	}
 
-	public void setEmlNM(String emlNM) {
-		this.emlNM = emlNM;
+	public int getMailNo() {
+		return mailNo;
+	}
+	public void setMailNo(int mailNo) {
+		this.mailNo = mailNo;
+	}
+	public String getReceiveEmp() {
+		return receiveEmp;
+	}
+	public void setReceiveEmp(String receiveEmp) {
+		this.receiveEmp = receiveEmp;
+	}
+	public String getEtype() {
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
+	}
+	public String getEtitle() {
+		return etitle;
+	}
+	public void setEtitle(String etitle) {
+		this.etitle = etitle;
+	}
+	public String getEcontent() {
+		return econtent;
+	}
+	public void setEcontent(String econtent) {
+		this.econtent = econtent;
+	}
+	public String getEstatus() {
+		return estatus;
+	}
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
+	}
+	public Timestamp getsDate() {
+		return sDate;
+	}
+	public void setsDate(Timestamp sDate) {
+		this.sDate = sDate;
+	}
+	public String getSenderMailId() {
+		return senderMailId;
+	}
+	public void setSenderMailId(String senderMailId) {
+		this.senderMailId = senderMailId;
+	}
+	public String getSenderName() {
+		return senderName;
 	}
 
-	public String getEmlCNT() {
-		return emlCNT;
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
+	}
+	public String getReceiverName() {
+		return receiverName;
 	}
 
-	public void setEmlCNT(String emlCNT) {
-		this.emlCNT = emlCNT;
+	public void setReceiverName(String receiverName) {
+		this.receiverName = receiverName;
 	}
 
-	public String getEmlFLNM() {
-		return emlFLNM;
+	public Mail(int mailNo, String receiveEmp, String etype, String etitle, String econtent, String estatus,
+			Timestamp sDate, String mNo, String senderMailId, String senderName, String receiverName,
+			ArrayList<MailFile> mailFileList) {
+		super();
+		this.mailNo = mailNo;
+		this.receiveEmp = receiveEmp;
+		this.etype = etype;
+		this.etitle = etitle;
+		this.econtent = econtent;
+		this.estatus = estatus;
+		this.sDate = sDate;
+		this.mNo = mNo;
+		this.senderMailId = senderMailId;
+		this.senderName = senderName;
+		this.receiverName = receiverName;
+		this.mailFileList = mailFileList;
 	}
 
-	public void setEmlFLNM(String emlFLNM) {
-		this.emlFLNM = emlFLNM;
+
+
+	public Mail(int mailNo, String receiveEmp, String etype, String etitle, String econtent, String estatus, Timestamp sDate,
+			String mNo, String senderMailId, String senderName, String receiverName, ArrayList<MailFile> mailFileList,
+			ArrayList<MailSR> mailSRList) {
+		super();
+		this.mailNo = mailNo;
+		this.receiveEmp = receiveEmp;
+		this.etype = etype;
+		this.etitle = etitle;
+		this.econtent = econtent;
+		this.estatus = estatus;
+		this.sDate = sDate;
+		this.mNo = mNo;
+		this.senderMailId = senderMailId;
+		this.senderName = senderName;
+		this.receiverName = receiverName;
+		this.mailFileList = mailFileList;
+		this.mailSRList = mailSRList;
 	}
 
-	public String getEmlFLRNM() {
-		return emlFLRNM;
+	public ArrayList<MailSR> getMailSRList() {
+		return mailSRList;
 	}
 
-	public void setEmlFLRNM(String emlFLRNM) {
-		this.emlFLRNM = emlFLRNM;
-	}
-
-	public String getEmlPLCRS() {
-		return emlPLCRS;
-	}
-
-	public void setEmlPLCRS(String emlPLCRS) {
-		this.emlPLCRS = emlPLCRS;
-	}
-
-	public Date getEmlTime() {
-		return emlTime;
-	}
-
-	public void setEmlTime(Date emlTime) {
-		this.emlTime = emlTime;
-	}
-
-	public String getEmlSnd() {
-		return emlSnd;
-	}
-
-	public void setEmlSnd(String emlSnd) {
-		this.emlSnd = emlSnd;
-	}
-
-	public int getEmlMem() {
-		return emlMem;
-	}
-
-	public void setEmlMem(int emlMem) {
-		this.emlMem = emlMem;
-	}
-
-	public int getEmlStatus() {
-		return emlStatus;
-	}
-
-	public void setEmlStatus(int emlStatus) {
-		this.emlStatus = emlStatus;
+	public void setMailSRList(ArrayList<MailSR> mailSRList) {
+		this.mailSRList = mailSRList;
 	}
 
 	@Override
 	public String toString() {
-		return "Mail [emlNo=" + emlNo + ", emlNM=" + emlNM + ", emlCNT=" + emlCNT + ", emlFLNM=" + emlFLNM
-				+ ", emlFLRNM=" + emlFLRNM + ", emlPLCRS=" + emlPLCRS + ", emlTime=" + emlTime + ", emlSnd=" + emlSnd
-				+ ", emlMem=" + emlMem + ", emlStatus=" + emlStatus + "]";
+		return "Mail [mailNo=" + mailNo + ", receiveEmp=" + receiveEmp + ", etype=" + etype + ", etitle=" + etitle
+				+ ", econtent=" + econtent + ", estatus=" + estatus + ", sDate=" + sDate + ", mNo=" + mNo
+				+ ", senderMailId=" + senderMailId + ", senderName=" + senderName + ", receiverName=" + receiverName
+				+ ", mailFileList=" + mailFileList + ", mailSRList=" + mailSRList + ", receiverRTime=" + receiverRTime
+				+ "]";
 	}
-	
-	
+
+	public ArrayList<MailFile> getMailFileList() {
+		return mailFileList;
+	}
+	public void setMailFileList(ArrayList<MailFile> mailFileList) {
+		this.mailFileList = mailFileList;
+	}
+
 }

@@ -46,16 +46,16 @@
 						<div class="card mb-0">
 							<div class="card-body">
 								<ul class="nav nav-pills">
-									<li class="nav-item"><a class="nav-link active" href="#">수신메일함
+									<li class="nav-item"><a class="nav-link active" href="location.href='mailbox.mail">수신메일함
 											<span class="badge badge-white">0</span>
 									</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">발신메일함
+									<li class="nav-item"><a class="nav-link" href="location.href='sendmailbox.mail">발신메일함
 											<span class="badge badge-primary">0</span>
 									</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">중요메일함
+									<li class="nav-item"><a class="nav-link" href="importantmailbox.mail">중요메일함
 											<span class="badge badge-primary">0</span>
 									</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">휴지통
+									<li class="nav-item"><a class="nav-link" href="junkmailbox.mail">휴지통
 											<span class="badge badge-primary">0</span>
 									</a></li>
 								</ul>
@@ -98,7 +98,10 @@
 											<th>날짜</th>
 											<th>첨부파일</th>
 										</tr>
-										<tr>
+										
+										<!-- 바꿔야할부분 -->
+										<c:forEach var="mail" items="${ list }">
+										<tr class= "content">
 											<td>
 												<div class="custom-checkbox custom-control">
 													<input type="checkbox" data-checkboxes="mygroup"
@@ -120,125 +123,53 @@
 											<td>2021-12-26</td>
 											<td>o</td>
 										</tr>
-										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-3"> <label
-														for="checkbox-3" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
-											<td>12-25 결제문서 입니다. 수정본입니다.
-												<div class="table-links">
-													<a href="#">상세보기</a>
-													<div class="bullet"></div>
-													<a href="#" class="text-danger">휴지통</a>
-												</div>
-											</td>
-											<td><a href="#"> <img alt="image"
-													src="assets/img/avatar/avatar-5.png" class="rounded-circle"
-													width="35" data-toggle="title" title="">
-													<div class="d-inline-block ml-1">강건강</div>
-											</a></td>
-											<td>2021-12-25</td>
-											<td>o</td>
+										</c:forEach>
+										
+										<tr align="center" height="20" id="buttonTab">
+											<td colspan="6">
+											
+												<!-- [이전] --> 
+												<c:if test="${ pi.currentPage <= 1 }">
+													[이전] &nbsp;
+												</c:if> <c:if test="${ pi.currentPage > 1 }">
+													<c:url var="before" value="blist.bo">
+														<c:param name="page" value="${ pi.currentPage - 1 }" />
+													</c:url>
+													<a href="${ before }">[이전]</a> &nbsp;
+												</c:if> 
+				
+												<!-- 페이지 --> 
+												<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+													<c:if test="${ p eq pi.currentPage }">
+														<font color="red" size="4"><b>[${ p }]</b></font>
+													</c:if>
 
+													<c:if test="${ p ne pi.currentPage }">
+														<c:url var="pagination" value="blist.bo">
+															<c:param name="page" value="${ p }" />
+														</c:url>
+														<a href="${ pagination }">${ p }</a> &nbsp;
+													</c:if>
+												</c:forEach> 										
+											
+											<!-- [다음] --> 
+												<c:if test="${ pi.currentPage >= pi.maxPage }"> 
+													[다음]
+												</c:if> 
+												<c:if test="${ pi.currentPage < pi.maxPage }">
+													<c:url var="after" value="blist.bo">
+														<c:param name="page" value="${ pi.currentPage + 1 }" />
+													</c:url>
+													<a href="${ after }">[다음]</a>
+												</c:if>
+											</td>
 										</tr>
-										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-4"> <label
-														for="checkbox-4" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
-											<td>12-25 결제문서 입니다.
-												<div class="table-links">
-													<a href="#">상세보기</a>
-													<div class="bullet"></div>
-													<a href="#" class="text-danger">휴지통</a>
-												</div>
-											</td>
-											<td><a href="#"> <img alt="image"
-													src="assets/img/avatar/avatar-5.png" class="rounded-circle"
-													width="35" data-toggle="title" title="">
-													<div class="d-inline-block ml-1">강건강</div>
-											</a></td>
-											<td>2021-12-25</td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-5"> <label
-														for="checkbox-5" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
-											<td>10-20 결제문서입니다.
-												<div class="table-links">
-													<a href="#">상세보기</a>
-													<div class="bullet"></div>
-													<a href="#" class="text-danger">휴지통</a>
-												</div>
-											</td>
-											<td><a href="#"> <img alt="image"
-													src="assets/img/avatar/avatar-5.png" class="rounded-circle"
-													width="35" data-toggle="title" title="">
-													<div class="d-inline-block ml-1">강건강</div>
-											</a></td>
-											<td>2021-10-20</td>
-											<td>o</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="custom-checkbox custom-control">
-													<input type="checkbox" data-checkboxes="mygroup"
-														class="custom-control-input" id="checkbox-1"> <label
-														for="checkbox-1" class="custom-control-label">&nbsp;</label>
-												</div>
-											</td>
-											<td>10-19 결제 문서입니다.
-												<div class="table-links">
-													<a href="#">상세보기</a>
-													<div class="bullet"></div>
-													<a href="#" class="text-danger">휴지통</a>
-												</div>
-											</td>
-											<td><a href="#"> <img alt="image"
-													src="assets/img/avatar/avatar-5.png" class="rounded-circle"
-													width="35" data-toggle="title" title="">
-													<div class="d-inline-block ml-1">강건강</div>
-											</a></td>
-											<td>2021-10-19</td>
-											<!-- 날짜 -->
-										</tr>
+										
+										
+										
 									</table>
 								</div>
-								<div class="float-right">
-									<nav>
-										<ul class="pagination">
-											<li class="page-item disabled"><a class="page-link"
-												href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-													<span class="sr-only">Previous</span>
-											</a></li>
-											<li class="page-item active"><a class="page-link"
-												href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">3</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">4</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">5</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#"
-												aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-													<span class="sr-only">Next</span>
-											</a></li>
-										</ul>
-									</nav>
-								</div>
+								
 							</div>
 						</div>
 					</div>

@@ -10,12 +10,14 @@
 		<typeAlias type="com.groupware.worktech.board.model.vo.BoardFile" alias="BoardFile"/>
 		<typeAlias type="com.groupware.worktech.admin.model.vo.Department" alias="Department"/>
 		<typeAlias type="com.groupware.worktech.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.groupware.worktech.mail.model.vo.Mail" alias="Mail"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/admin-mapper.xml"/>
+		<mapper resource="mappers/mail-mapper.xml"/>
 	</mappers>
 	
 </configuration>

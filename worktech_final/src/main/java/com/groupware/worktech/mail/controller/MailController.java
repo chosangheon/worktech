@@ -44,8 +44,36 @@ public class MailController {
 	@Autowired
 	private MemberService eService;
 //	mService
+	
+	// 전체 메일함 
+	@RequestMapping("alllist.mail")
+	public ModelAndView alllist(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv,
+			HttpServletRequest request) {
 
-	// 메일 보내기 페이지
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+		int boardLimit = 15;
+		String memNo = ((Member) request.getSession().getAttribute("loginUser")).getmNo();
+		int listCount = mService.getAllListCount(memNo);
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+		ArrayList<Mail> list = mService.selectAllList(pi, memNo);
+
+		int count = mService.selectCountNotRead(memNo);  // 읽지 않은 메일 개수가져오기
+
+		if (list != null) {
+			mv.addObject("list", list).addObject("pi", pi).addObject("count", count);
+			mv.setViewName("allmaillist");
+		} else {
+			throw new MailException("전체메일함 조회에 실패했습니다.");
+		}
+
+		return mv;
+	}
+	
+	// 메일 쓰기 페이지
 	@RequestMapping("send.mail")
 	public ModelAndView mailSendForm(ModelAndView mv, HttpSession session) {
 		
@@ -190,33 +218,6 @@ public class MailController {
 		if (result > 0) {
 			response.getWriter().append("success");
 		}
-	}
-
-	@RequestMapping("alllist.mail")
-	public ModelAndView alllist(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv,
-			HttpServletRequest request) {
-
-		int currentPage = 1;
-		if (page != null) {
-			currentPage = page;
-		}
-		int boardLimit = 15;
-		String memNo = ((Member) request.getSession().getAttribute("loginUser")).getmNo();
-		int listCount = mailService.getAllListCount(memNo);
-
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
-		ArrayList<Mail> list = mailService.selectAllList(pi, memNo);
-
-		int count = mailService.selectCountNotRead(memNo); // 읽지 않은 메일 개수 가져오기
-
-		if (list != null) {
-			mv.addObject("list", list).addObject("pi", pi).addObject("count", count);
-			mv.setViewName("allmaillist");
-		} else {
-			throw new MailException("전체메일함 조회에 실패했습니다.");
-		}
-
-		return mv;
 	}
 	
 	// 중요메일함
@@ -416,8 +417,6 @@ public class MailController {
 
 		if (result > 0) {
 			switch (command) {
-			case "alllist":
-				return "redirect:alllist.mail";
 			case "templist":
 				return "redirect:templist.mail";
 			case "sendlist":
@@ -434,7 +433,8 @@ public class MailController {
 		}
 		return null;
 	}
-
+	
+	// 휴지통 메일
 	@RequestMapping("deletelist.mail")
 	public ModelAndView deleteList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv,
 			HttpServletRequest request) {
@@ -469,7 +469,9 @@ public class MailController {
 
 		return mv;
 	}
-
+	
+	
+	
 	@RequestMapping(value = "tmpInsert.mail")
 	public String tempInsert(@ModelAttribute Mail mail, MultipartHttpServletRequest mtpRequest) throws MailException {
 		String root = mtpRequest.getSession().getServletContext().getRealPath("resources");
@@ -514,7 +516,9 @@ public class MailController {
 		return "redirect:templist.mail";
 	}
 	
-
+	
+	
+	
 	@RequestMapping("mailInsert.mail")
 	public String mailInsert(@ModelAttribute Mail mail, MultipartHttpServletRequest mtpRequest) throws MailException {
 		String root = mtpRequest.getSession().getServletContext().getRealPath("resources");
@@ -543,7 +547,7 @@ public class MailController {
 			mail.setMNo(memNo);
 			mailService.insertMail(mail);
 		}
-		if (!uploadFile.isEmpty()) { // 받아온 파일이 있을 때만 MAIL과 MAIL_FILE CURRVAL로 연결
+		if (!uploadFile.isEmpty()) { 
 			System.out.println("업로드된 파일 수 : " + fileList.size());
 			for (MultipartFile mf : fileList) {
 				String originFileName = mf.getOriginalFilename(); // 원본 파일 명
@@ -577,7 +581,9 @@ public class MailController {
 
 		return "redirect:sendlist.mail";
 	}
-
+	
+	
+	// 메일 타입
 	private boolean isType(Mail mail) {
 		String id = mail.getReceiveEmp();
 		int index = id.lastIndexOf('@');
@@ -591,6 +597,7 @@ public class MailController {
 		}
 	}
 
+	
 	@RequestMapping(value = "tmpUpdate.mail")
 	public String updateTemp(@ModelAttribute Mail mail, MultipartHttpServletRequest mtpRequest, ModelAndView mv)
 			throws MailException {
@@ -633,6 +640,7 @@ public class MailController {
 		return "redirect:templist.mail";
 	}
 
+	// ajax 
 	@RequestMapping("fileDeleteAjax.mail")
 	@ResponseBody
 	public String deleteFileAjax(@RequestParam("mFileNo") int mFileNo, HttpServletRequest request) {
@@ -671,7 +679,7 @@ public class MailController {
 			e.printStackTrace();
 		}
 
-		// 바뀐 이름이 필요하다.
+		
 		return renameFileName;
 	}
 
@@ -696,6 +704,7 @@ public class MailController {
 		}
 	}
 
+	
 	private String getMId(String email) {
 		return email.substring(0, email.lastIndexOf('@'));
 	}

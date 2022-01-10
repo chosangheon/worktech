@@ -1,16 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 	<title>Home</title>
 </head>
 <body>
-<<<<<<< HEAD
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-=======
 
 	<div class="menu">
 		<a href="noticeList.ad">공지사항 게시판</a>
@@ -30,6 +24,5 @@
     	<c:import url="../views/common/headerAdmin.jsp" />
     </c:if>
 
->>>>>>> 8ba79d9189f10974c7c25a7a3c97dbc645cd18be
 </body>
 </html>

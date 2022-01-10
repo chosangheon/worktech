@@ -1,187 +1,268 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
 <title>메일 상세보기</title>
-<!-- CSS Libraries -->
-<link rel="stylesheet"
-	href="../../../resources/dist/assets/modules/summernote/summernote-bs4.css">
-<link rel="stylesheet"
-	href="../../../resources/dist/assets/modules/jquery-selectric/selectric.css">
-<link rel="stylesheet"
-	href="../../../resources/dist/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
-<!-- Start GA -->
-<script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
-<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag() {
-		dataLayer.push(arguments);
-	}
-	gtag('js', new Date());
 
-	gtag('config', 'UA-94034622-3');
-</script>
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="${contextPath}/resources/plugins/fontawesome-free/css/all.min.css">
+<!-- Theme style -->
+<link rel="stylesheet"
+	href="${contextPath}/resources/dist/css/adminlte.min.css">
+
+<style>
+.mailSR-info {
+	font-size: 14px;
+	color: gray;
+/* 	vertical-align: middle; */
+}
+
+#favorites-icon {
+	font-size: 14px;
+}
+
+.mail-icon {
+	width: 20px;
+}
+
+.thispage, .thispage b {
+	color: #007bff;
+}
+
+.table td, .table th {
+	padding: .25rem;
+	vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.table-hover tbody tr:hover {
+	background-color: rgba(0, 0, 0, .075)
+}
+
+.table td:nth-child(1) {
+	width: 4%;
+}
+
+.table td:nth-child(2) {
+	width: 8%;
+}
+
+.table td:nth-child(3) {
+	width: 18%;
+}
+
+.table td:nth-child(4) {
+	width: 50%;
+}
+
+.table td:nth-child(5) {
+	text-align: right;
+}
+
+.table td:nth-child(6) {
+	width: 12%;
+	text-align: right;
+}
+
+.fa-star {
+	margin-right: 8px;
+}
+
+.fa-paperclip {
+	margin-left: 10px;
+}
+
+.mailbox-name a {
+	margin-left: 20px;
+	text-decoration: none;
+}
+
+td {
+	height: 35px;
+}
+
+.pagination {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.mailNo-hidden {
+	display: none;
+	width: 0px;
+}
+
+.mailbox-read-message {
+	min-height: 400px;
+}
+</style>
+
 </head>
-<body>
-	
-	<!-- Main Content -->
-			<div class="main-content">
-				<section class="section">
-					<div class="section-header">
-						<div class="section-header-back">
-							<a href="features-posts.html" class="btn btn-icon"><i
-								class="fas fa-arrow-left"></i></a>
+<body class="hold-transition sidebar-mini">
+
+		<jsp:include page="../common/headerUser.jsp"/>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+<!-- 							<h1>메일 읽기</h1> -->
 						</div>
-						<h1>메일 상세보기</h1>
-						<div class="section-header-breadcrumb">
-							<div class="breadcrumb-item">
-								<a href="#">메일함</a>
-							</div>
-							<div class="breadcrumb-item">메일 상세보기</div>
+						<div class="col-sm-6">
+<!-- 							<ol class="breadcrumb float-sm-right"> -->
+<!-- <!-- 								<li class="breadcrumb-item"><a href="#">Home</a></li> --> -->
+<!-- <!-- 								<li class="breadcrumb-item active">Compose</li> --> -->
+<!-- 							</ol> -->
 						</div>
 					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
 
-					<div class="section-body">
-						<h2 class="section-title">메일 상세보기</h2>
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<jsp:include page="mailsidemenu.jsp"></jsp:include>
+						<!-- /.col -->
+						<div class="col-md-9">
+							<div class="card card-primary card-outline">
+								<div class="card-header">
+									<h3 class="card-title">${mail.etitle }</h3>
 
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-header">
-										<h4>메일 내용</h4>
-									</div>
-
-									<div class="row">
-										<div class="col-md-2">
-											<div class="card">
-												<div class="card-body">
-													<div class="card-header">
-														<h6 class="card-title">메뉴</h6>
-
-
-													</div>
-													<div class="card-body p-0">
-														<ul class="nav nav-pills flex-column">
-
-
-															<li class="nav-item active"><a href="#"
-																class="nav-link"> <i class="fas fa-inbox"></i> 수신메일함
-																	<!-- 																	<span class="badge bg-primary float-right"> -->
-																	<!-- 																		알람 --> <!-- 																</span> -->
-															</a></li>
-															<li class="nav-item"><a href="#" class="nav-link">
-																	<i class="far fa-envelope"></i> 보낸메일함
-															</a></li>
-															<li class="nav-item"><a href="#" class="nav-link">
-																	<i class="far fa-star"></i> 중요메일함
-															</a></li>
-															<li class="nav-item"><a href="#" class="nav-link">
-																	<i class="far fa-trash-alt"></i> 휴지통
-															</a></li>
-
-														</ul>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="col-md-10">
-											<div class="read-content">
-                                                    <div class="media pt-3">
-                                                        <img class="mr-4 rounded-circle" alt="image" src="./images/avatar/1.jpg">
-                                                        <div class="media-body">
-                                                            <h5 class="text-primary">강건강</h5>
-                                                            <p class="mb-0">2021-12-26</p>
-                                                        </div>
-                                                        
-                                                        <a href="javascript:void()" class="text-muted "><i
-                                                                class="fa fa-reply"></i> </a>
-                                                        <a href="javascript:void()" class="text-muted ml-3"><i
-                                                                class="fa fa-long-arrow-right"></i> </a>
-                                                        <a href="javascript:void()" class="text-muted ml-3"><i
-                                                                class="fa fa-trash"></i></a>
-                                                    </div>
-                                                    <hr>
-                                                    <div class="media mb-4 mt-5">
-                                                        <div class="media-body">
-                                                            <h5 class="my-1 text-primary">12월 26일 결제 서류입니다.</h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="read-content-body">
-                                                        <h5 class="mb-5">Hi,Ingredia,</h5>
-                                                        <p><strong>Ingredia Nutrisha,</strong> A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture</p>
-                                                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for
-                                                            the far World of Grammar. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-                                                        </p>
-                                                        <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut
-                                                            metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum
-                                                            rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,</p>
-                                                        <h5 class="pt-3">Kind Regards</h5>
-                                                        <p>Mr Smith</p>
-                                                        <hr>
-                                                    </div>
-                                                    <div class="read-content-attachment">
-                                                        <h6><i class="fa fa-download mb-2"></i> 첨부파일
-                                                            <span>(1)</span></h6>
-                                                        <div class="row attachment">
-                                                            <div class="col-auto">
-                                                                <a href="javascript:void()" class="text-muted">My-Photo.ppt</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                </div>
-											
-											</div>
-											
-                                                    </div>
-											<div class="text-right">
-                                                    <button class="btn btn-primary btn-sl-sm mb-5" type="button">답장하기</button>
-                                                    <button class="btn btn-primary btn-sl-sm mb-5" type="button">삭제하기</button>
-                                            </div>
-											<!--                   		</div> -->
-
-<!-- 										</div> -->
+									<div class="card-tools">
+										<a href="#" class="btn btn-tool" title="Previous"><i
+											class="fas fa-chevron-left"></i></a> <a href="#"
+											class="btn btn-tool" title="Next"><i
+											class="fas fa-chevron-right"></i></a>
 									</div>
 								</div>
+								<!-- /.card-header -->
+								<div class="card-body p-0">
+									<div class="mailbox-read-info">
+										<h6>
+											보낸 사람 : &lt;${mail.senderName }&gt; ${mail.empNo }@workhome.com
+											</h5>
+											<h6>
+												받는 사람 :
+												<c:if test="${mail.receiverName != null }">&lt;${mail.receiverName }&gt;</c:if>
+												${mail.receiveEmp} <span
+													class="mailbox-read-time float-right">
+														<fmt:formatDate pattern="yyyy-MM-dd a HH:mm" value="${mail.sDate }"/>
+													</span>
+											</h6>
+									</div>
+									<!-- /.mailbox-read-info -->
+									<div class="mailbox-controls with-border text-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-default btn-sm"
+												data-container="body" title="Delete">
+												<i class="far fa-trash-alt"></i>
+											</button>
+											<button type="button" class="btn btn-default btn-sm"
+												data-container="body" title="Reply">
+												<i class="fas fa-reply"></i>
+											</button>
+											<button type="button" class="btn btn-default btn-sm"
+												data-container="body" title="Forward">
+												<i class="fas fa-share"></i>
+											</button>
+										</div>
+										<!-- /.btn-group -->
+										<button type="button" class="btn btn-default btn-sm"
+											title="Print">
+											<i class="fas fa-print"></i>
+										</button>
+									</div>
+									<!-- /.mailbox-controls -->
+									<div class="mailbox-read-message">${mail.econtent }</div>
+									<!-- /.mailbox-read-message -->
+								</div>
+								<!-- /.card-body -->
+								<div class="card-footer bg-white">
+									<ul
+										class="mailbox-attachments d-flex align-items-stretch clearfix">
+										<c:forEach var="mF" items="${mail.mailFileList }">
+											<c:if test="${mF.mFileNo != 0}">
+												<li><span class="mailbox-attachment-icon"><i
+														class="far fa-file-pdf"></i></span>
+
+													<div class="mailbox-attachment-info">
+														<a 
+														href="${contextPath }/resources/mailUploadFiles/${mF.mChangeName}" 
+														download="${mF.mOriginalName }"
+														class="mailbox-attachment-name"><i
+															class="fas fa-paperclip"></i> ${mF.mOriginalName }</a> <span
+															class="mailbox-attachment-size clearfix mt-1"> 
+<!-- 															<span>1,245KB</span>  -->
+															<a 
+																href="${contextPath }/resources/mailUploadFiles/${mF.mChangeName}" 
+																download="${mF.mOriginalName }"
+															class="btn btn-default btn-sm float-right"><i
+																class="fas fa-cloud-download-alt"></i></a>
+														</span>
+													</div></li>
+											</c:if>
+										</c:forEach>
+									</ul>
+
+								</div>
+								<!-- /.card-footer -->
+								<div class="card-footer">
+									<div class="float-right">
+										<button type="button" class="btn btn-default">
+											<i class="fas fa-reply"></i> 답장
+										</button>
+										<button type="button" class="btn btn-default">
+											<i class="fas fa-share"></i> 전달
+										</button>
+									</div>
+									<button type="button" class="btn btn-default">
+										<i class="far fa-trash-alt"></i> 삭제
+									</button>
+									<button type="button" class="btn btn-default">
+										<i class="fas fa-print"></i> 인쇄
+									</button>
+								</div>
+								<!-- /.card-footer -->
 							</div>
+							<!-- /.card -->
 						</div>
-				</section>
-			</div>	
-			<!-- footer -->
-			
-			<!-- General JS Scripts -->
-	<script src="../../../resources/dist/assets/modules/jquery.min.js"></script>
-	<script src="../../../resources/dist/assets/modules/popper.js"></script>
-	<script src="../../../resources/dist/assets/modules/tooltip.js"></script>
-	<script
-		src="../../../resources/dist/assets/modules/bootstrap/js/bootstrap.min.js"></script>
-	<script
-		src="../../../resources/dist/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
-	<script src="../../../resources/dist/assets/modules/moment.min.js"></script>
-	<script src="../../../resources/dist/assets/js/stisla.js"></script>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+			<!-- /.content -->
+		</div>
+		
+		<jsp:include page="../common/footer.jsp"></jsp:include>
 
-	<!-- JS Libraies -->
+	<!-- jQuery -->
+	<script src="${contextPath}/resources/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script
+		src="${contextPath}/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="${contextPath}/resources/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="${contextPath}/resources/dist/js/demo.js"></script>
 
-	<script
-		src="../../../resources/dist/assets/modules/summernote/summernote-bs4.js"></script>
-	<script
-		src="../../../resources/dist/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
-	<script
-		src="../../../resources/dist/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
-	<script
-		src="../../../resources/dist/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
-
-	<!-- Page Specific JS File -->
-	<script
-		src="../../../resources/dist/assets/js/page/features-post-create.js"></script>
-
-	<!-- Template JS File -->
-	<script src="../../../resources/dist/assets/js/scripts.js"></script>
-	<script src="../../../resources/dist/assets/js/custom.js"></script>
-			
+	
 </body>
 </html>

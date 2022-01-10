@@ -37,7 +37,6 @@ public class MailDAO {
 	public ArrayList<Mail> selectTempList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo) {
 
 		int offset = pi.getBoardLimit() * (pi.getCurrentPage() - 1);
-		// offSet : cp가 10일 때 15 * 9 = 125, 125개 게시물 건너뛰기, cp가 1일 떄는 15 * 0이므로 0개 게시물
 		// 건너뛰기
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 

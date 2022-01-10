@@ -164,7 +164,7 @@
                                 <span>근태 관리</span></a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="fas fa-envelope-open-text"></i>
                                 <span>메일</span></a>
                         </li>

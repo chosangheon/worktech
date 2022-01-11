@@ -23,7 +23,12 @@
 		<typeAlias type="com.groupware.worktech.chat.model.vo.ChatMessage" alias="ChatMessage"/>
 		<typeAlias type="com.groupware.worktech.adbook.model.vo.Adbook" alias="Adbook"/>
 		<typeAlias type="com.groupware.worktech.approval.model.vo.Approval" alias="Approval"/>
+<<<<<<< HEAD
 >>>>>>> e1e1facd4ab75629b83e369a1bc9abc4b3203df5
+=======
+		<typeAlias type="com.groupware.worktech.reservation.model.vo.Reservation" alias="Reservation"/>
+		<typeAlias type="com.groupware.worktech.alarm.model.vo.Alarm" alias="Alarm"/>
+>>>>>>> 3c2e701a3c91fca270a804444af43757c3e22a85
 	</typeAliases>
 	
 	<mappers>
@@ -34,6 +39,8 @@
 		<mapper resource="mappers/chat-mapper.xml"/>
 		<mapper resource="mappers/adbook-mapper.xml"/>
 		<mapper resource="mappers/approval-mapper.xml"/>
+		<mapper resource="mappers/reservation-mapper.xml"/>
+		<mapper resource="mappers/alarm-mapper.xml"/>
 	</mappers>
 	
 </configuration>

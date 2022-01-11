@@ -7,7 +7,11 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+<<<<<<< HEAD
 >>>>>>> e1e1facd4ab75629b83e369a1bc9abc4b3203df5
+=======
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+>>>>>>> 3c2e701a3c91fca270a804444af43757c3e22a85
 		<property name="java-output-path" value="target/classes"/>
         <property name="context-root" value="worktech"/>
 	</wb-module>

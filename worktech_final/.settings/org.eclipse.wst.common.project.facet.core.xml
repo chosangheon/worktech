@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <runtime name="workTechServer"/>
   <fixed facet="jst.web"/>
   <fixed facet="jst.java"/>
@@ -12,6 +13,9 @@
   <secondary-runtime name="Worktech"/>
   <secondary-runtime name="Apache Tomcat v9.0"/>
 
+=======
+  <runtime name="Apache Tomcat v9.0"/>
+>>>>>>> 3c2e701a3c91fca270a804444af43757c3e22a85
   <fixed facet="jst.web"/>
   <fixed facet="jst.java"/>
   <installed facet="jst.web" version="2.5"/>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,16 +13,14 @@
     <link rel="stylesheet" href="resources/dist/assets/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/dist/assets/modules/fontawesome/css/all.min.css">
 
-    <!-- jstree -->
-	<link rel="stylesheet" href="resources/dist/themes/default/style.min.css" />
     <!-- CSS Libraries -->
-	<link rel="stylesheet" href="resources/dist/assets/modules/summernote/summernote-bs4.css">
-	<link rel="stylesheet" href="resources/dist/assets/modules/codemirror/lib/codemirror.css">
-	<link rel="stylesheet" href="resources/dist/assets/modules/codemirror/theme/duotone-dark.css">
-	<link rel="stylesheet" href="resources/dist/assets/modules/jquery-selectric/selectric.css">
+
     <!-- Template CSS -->
     <link rel="stylesheet" href="resources/dist/assets/css/style.css">
     <link rel="stylesheet" href="resources/dist/assets/css/components.css">
+    
+    <!-- jstree -->
+<!-- 	<link rel="stylesheet" href="resources/dist/themes/default/style.min.css" /> -->
     
     <!-- Start GA -->
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
@@ -40,7 +39,17 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 </head>
-
+<style>
+	.dropdown-item-icon{
+		display: flex;
+        justify-content: center;
+	}
+	
+	.alarmIcon{
+ 		align-self: center;
+		font-size: 18px;
+	}
+</style>
 <body>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
@@ -83,43 +92,46 @@
                                     <a href="#">5개</a>
                                 </div>
                             </div>
-                            <div class="dropdown-list-content dropdown-list-icons">
-                                    <a href="#" class="dropdown-item dropdown-item-unread">
-                                        <div class="dropdown-item-icon bg-primary text-white">
-                                        </div>
-                                        <div class="dropdown-item-desc">
-                                            캘린더 알림
-                                            <div class="time text-primary">2 Min Ago</div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="dropdown-item">
-                                        <div class="dropdown-item-icon bg-info text-white">
-                                        </div>
-                                        <div class="dropdown-item-desc">
-                                            게시판 알림
-                                            <div class="time">10 Hours Ago</div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="dropdown-item">
-                                        <div class="dropdown-item-icon bg-success text-white">
-                                        </div>
-                                        <div class="dropdown-item-desc">
-                                            전자결재 알림
-                                            <div class="time">12 Hours Ago</div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="dropdown-footer text-center">
+							<div class="dropdown-list-content dropdown-list-icons" id="notiDiv">
+<!-- 								<a href="#" class="dropdown-item dropdown-item-unread"> -->
+<!-- 									<div class="dropdown-item-icon bg-primary text-white"> -->
+<!-- 										<i class="far fa-calendar-alt alarmIcon"></i> -->
+<!-- 									</div> -->
+<!-- 									<div class="dropdown-item-desc"> -->
+<!-- 										캘린더 알림 -->
+<!-- 										<div class="time text-primary">2 Min Ago</div> -->
+<!-- 									</div> -->
+<!-- 								</a> -->
+<!-- 								<a href="#" class="dropdown-item"> -->
+<!-- 									<div class="dropdown-item-icon bg-info text-white"> -->
+<!-- 										<i class="fas fa-clipboard-list alarmIcon"></i> -->
+<!-- 									</div> -->
+<!-- 									<div class="dropdown-item-desc"> -->
+<!-- 										게시판 알림 -->
+<!-- 										<div class="time">10 Hours Ago</div> -->
+<!-- 									</div> -->
+<!-- 								</a> -->
+<!-- 								<a href="#" class="dropdown-item"> -->
+<!-- 									<div class="dropdown-item-icon bg-success text-white"> -->
+<!-- 										<i class="fas fa-user-friends alarmIcon"></i> -->
+<!-- 									</div> -->
+<!-- 									<div class="dropdown-item-desc"> -->
+<!-- 										전자결재 알림 -->
+<!-- 										<div class="time">12 Hours Ago</div> -->
+<!-- 									</div> -->
+<!-- 								</a> -->
+							</div>
+							<div class="dropdown-footer text-center">
                             </div>
                         </div>
                     </li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <img alt="image" src="resources/dist/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">사용자</div>
+                            <div class="d-sm-none d-lg-inline-block">${ loginUser.name } ${ loginUser.jobGrade }</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <div class="dropdown-title">OOO 님 환영합니다!</div>
+                            <div class="dropdown-title">${ loginUser.name } 님 환영합니다!</div>
                             <a href="features-profile.html" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i>
                                 마이 페이지
@@ -148,15 +160,15 @@
                     <ul class="sidebar-menu">
                         <li class="menu-header">User Menu</li>
                         <li class="dropdown">
-                            <a href="approvalmain.ap" class="nav-link has-dropdown">
+                            <a href="#" class="nav-link has-dropdown">
                                 <i class="fas fa-user-friends"></i>
                                 <span>전자 결재</span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="nav-link" href="approvalWrite.ap">새 결재 진행</a>
+                                        <a class="nav-link" href="bootstrap-breadcrumb.html">새 결재 진행</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="approvalWait.ap">결재 대기함</a>
+                                        <a class="nav-link" href="bootstrap-alert.html">결재 대기함</a>
                                     </li>
                                     <li>
                                         <a class="nav-link" href="bootstrap-badge.html">결재 진행함</a>
@@ -172,7 +184,11 @@
                                 <span>근태 관리</span></a>
                         </li>
                         <li class="dropdown">
+<<<<<<< HEAD
                             <a href="" class="nav-link">
+=======
+                            <a href="alllist.mail" class="nav-link">
+>>>>>>> 3c2e701a3c91fca270a804444af43757c3e22a85
                                 <i class="fas fa-envelope-open-text"></i>
                                 <span>메일</span></a>
                         </li>
@@ -270,21 +286,17 @@
     <script src="resources/dist/assets/modules/moment.min.js"></script>
     <script src="resources/dist/assets/js/stisla.js"></script>
 
-	<!-- jstree -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
-	<script src="resources/dist/jstree.min.js"></script>
     <!-- JS Libraies -->
-	<script src="resources/dist/assets/modules/summernote/summernote-bs4.js"></script>
-	<script src="resources/dist/assets/modules/codemirror/lib/codemirror.js"></script>
-	<script src="resources/dist/assets/modules/codemirror/mode/javascript/javascript.js"></script>
-	<script src="resources/dist/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
-			
 
     <!-- Page Specific JS File -->
 
     <!-- Template JS File -->
     <script src="resources/dist/assets/js/scripts.js"></script>
     <script src="resources/dist/assets/js/custom.js"></script>
+    
+    <!-- jstree -->
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script> -->
+<!-- 	<script src="resources/dist/jstree.min.js"></script> -->
 
 
 	
@@ -292,14 +304,20 @@
 		function chatOpen() {
 			window.open('chatView.ct', '채팅', 'width=500px, height=600px, resizable=no, toolbar=1');
 		}
+		
+		$(document).ready(function(){
+			connectWs();
+			alarmList();
+		});
 	
-		// 알림 관련
+		// 실시간 알림을 위한 웹소켓
 		var socket = null;
 		
 		function connectWs() {
 			// SockJS 라이브러리를 이용하여 서버에 연결
 			var sock = new SockJS('http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/alarm');
 			socket = sock;
+
 			// 이벤트 리스터(커넥션이 연결되었을 때 서버 호출된다)
 			sock.onopen = function() {
 				console.log('info: connection opened.');
@@ -309,6 +327,28 @@
 			// 메세지를 보냈을 때 호출
 			sock.onmessage = function(evt){
 				console.log('info: connection onmessage');
+				var data = evt.data;
+				
+				const arr = data.split(",");
+				
+				var today = new Date();
+				var month = ('0' + (today.getMonth() + 1)).slice(-2);
+				var day = ('0' + today.getDate()).slice(-2);
+				var hours = ('0' + today.getHours()).slice(-2);
+				var minutes = ('0' + today.getMinutes()).slice(-2);
+				
+				var $a = $('<a class="dropdown-item">');
+				var $icon = $('<div class="dropdown-item-icon bg-info text-white"><i class="fas fa-clipboard-list alarmIcon"></i>');
+				var $desc = $('<div class="dropdown-item-desc">')
+							.html(arr[1] + " 님이 " + "<a href='cdetail.bo?bNo=" + arr[3] + "'>[" + arr[4] + "]</a> 게시글에 댓글을 남겼습니다.");
+				var $time = $('<div class="time">')
+							.html(month + "월 " + day + "일 " + hours + ":" + minutes);
+				
+				$desc.append($time);
+				$a.append($icon);
+				$a.append($desc);
+				
+				$($a).prependTo('#notiDiv');
 			}
 			
 			// 서버가 끊겼을 때 호출
@@ -322,9 +362,33 @@
 			}
 		}
 		
-		$(document).ready(function(){
-			connectWs();
-		});
+		function alarmList() {
+			var mNo = '${ loginUser.mNo }';
+			
+			$.ajax({
+				url: 'alarmList.al',
+				data: {mNo:mNo},
+				dataType: 'json',
+				success: function(data){
+					for(var i in data){
+						var $a = $('<a class="dropdown-item">');
+						var $icon = $('<div class="dropdown-item-icon bg-info text-white"><i class="fas fa-clipboard-list alarmIcon"></i>');
+						var $desc = $('<div class="dropdown-item-desc">')
+									.html(data[i].senderName + " 님이 " + "<a href='cdetail.bo?bNo=" + data[i].bNo + "'>[" + data[i].bTitle + "]</a> 게시글에 댓글을 남겼습니다.");
+						var $time = $('<div class="time">').html(data[i].alarmDate);
+						
+						$desc.append($time);
+						$a.append($icon);
+						$a.append($desc);
+						
+						$($a).appendTo('#notiDiv');
+					}
+				},
+				error: function(data){
+					console.log(data);
+				}
+			});
+		}
 		
 	</script>
 </body>

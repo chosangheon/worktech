@@ -406,13 +406,9 @@ td {
 	<c:import url="../common/footer.jsp" />
 
 
-	<!-- jQuery -->
 	<script src="${contextPath}/resources/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
 	<script src="${contextPath}/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- AdminLTE App -->
 	<script src="${contextPath}/resources/dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
 	<script src="${contextPath}/resources/dist/js/demo.js"></script>
 	<!-- Page specific script -->
 	<script>

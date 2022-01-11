@@ -56,12 +56,21 @@ public class MailController {
 		}
 		int boardLimit = 15;
 		String memNo = ((Member) request.getSession().getAttribute("loginUser")).getmNo();
+<<<<<<< HEAD
 		int listCount = mService.getAllListCount(memNo);
 
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
 		ArrayList<Mail> list = mService.selectAllList(pi, memNo);
 
 		int count = mService.selectCountNotRead(memNo);  // 읽지 않은 메일 개수가져오기
+=======
+		int listCount = mailService.getAllListCount(memNo);
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, boardLimit);
+		ArrayList<Mail> list = mailService.selectAllList(pi, memNo);
+
+		int count = mailService.selectCountNotRead(memNo);  // 읽지 않은 메일 개수가져오기
+>>>>>>> e1e1facd4ab75629b83e369a1bc9abc4b3203df5
 
 		if (list != null) {
 			mv.addObject("list", list).addObject("pi", pi).addObject("count", count);

@@ -17,7 +17,13 @@
 		<typeAlias type="com.groupware.worktech.chat.model.vo.ChatRoom" alias="ChatRoom"/>
 		<typeAlias type="com.groupware.worktech.chat.model.vo.GatheringMember" alias="GatheringMember"/>
 		<typeAlias type="com.groupware.worktech.board.model.vo.Reply" alias="Reply"/>
+<<<<<<< HEAD
 
+=======
+		<typeAlias type="com.groupware.worktech.chat.model.vo.ChatMessage" alias="ChatMessage"/>
+		<typeAlias type="com.groupware.worktech.adbook.model.vo.Adbook" alias="Adbook"/>
+		<typeAlias type="com.groupware.worktech.approval.model.vo.Approval" alias="Approval"/>
+>>>>>>> e1e1facd4ab75629b83e369a1bc9abc4b3203df5
 	</typeAliases>
 	
 	<mappers>
@@ -27,6 +33,7 @@
 		<mapper resource="mappers/mail-mapper.xml"/>
 		<mapper resource="mappers/chat-mapper.xml"/>
 		<mapper resource="mappers/adbook-mapper.xml"/>
+		<mapper resource="mappers/approval-mapper.xml"/>
 	</mappers>
 	
 </configuration>

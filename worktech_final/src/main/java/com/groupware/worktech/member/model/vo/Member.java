@@ -11,7 +11,7 @@ public class Member {
 	private String jobGrade;
 	private Date birthDay;
 	private String phone;
-	private String Address;
+	private String address;
 	private String mGrade; // 회원 등급 : user/admin
 	private int dNo;
 	private String dName;
@@ -31,7 +31,7 @@ public class Member {
 		this.jobGrade = jobGrade;
 		this.birthDay = birthDay;
 		this.phone = phone;
-		Address = address;
+		this.address = address;
 		this.mGrade = mGrade;
 		this.dNo = dNo;
 		this.dName = dName;
@@ -97,11 +97,11 @@ public class Member {
 	}
 
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
 
 	public String getmGrade() {
@@ -155,10 +155,9 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [mNo=" + mNo + ", email=" + email + ", name=" + name + ", pwd=" + pwd + ", jobGrade=" + jobGrade
-				+ ", birthDay=" + birthDay + ", phone=" + phone + ", Address=" + Address + ", mGrade=" + mGrade
+				+ ", birthDay=" + birthDay + ", phone=" + phone + ", address=" + address + ", mGrade=" + mGrade
 				+ ", dNo=" + dNo + ", dName=" + dName + ", hireDate=" + hireDate + ", pUrl=" + pUrl + ", mStatus="
 				+ mStatus + "]";
 	}
 
-	
 }

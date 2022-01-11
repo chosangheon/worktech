@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -72,7 +73,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("cinsertView.bo")
-	public String generalBoardInsertView() {
+	public String commonBoardInsertView() {
 		return "commonBoardInsertForm";
 	}
 	
@@ -307,11 +308,230 @@ public class BoardController {
 		}
 		
 		return "commonBoardList";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 화상회의 게시판
+	@RequestMapping("zoom.bo")
+public /*String*/ModelAndView zBoardList(@RequestParam(value="page", required=false) Integer page, /*Model model*/ ModelAndView mv) {	
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.getZListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> list = bService.selectZList(pi);
+		
+		if(list != null) {
+			mv.addObject("pi", pi);
+			mv.addObject("list", list);
+			mv.setViewName("zoomListView");
+			
+		} else {
+			throw new BoardException("게시글 전체 조회에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("zinsertView.bo")
+	public String insertView() {
+		return "zoomInsertForm";
 	}
 	
 	@RequestMapping("addCommonReply.bo")
 	@ResponseBody
-	public String insertCommonReply(@ModelAttribute Reply r, Model model) {
+	public String insertCommonReply(@ModelAttribute Reply r) {
 		int result = bService.insertCommonReply(r);
 		
 		if(result > 0) {
@@ -341,11 +561,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping("deleteCommonReply.bo")
-	public String deleteCommonReply(@RequestParam("bNo") int bNo, @RequestParam("rNo") int rNo, Model model) {
+	@ResponseBody
+	public String deleteCommonReply(@RequestParam("bNo") int bNo, @RequestParam("rNo") int rNo) {
 		int result = bService.deleteCommonReply(rNo);
 		
 		if(result > 0) {
-			return "redirect:cdetail.bo?bNo=" + bNo;
+			return "success";
 		} else {
 			throw new BoardException("댓글 삭제에 실패하였습니다.");
 		}

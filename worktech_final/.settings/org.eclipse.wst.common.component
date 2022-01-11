@@ -2,6 +2,12 @@
 	<wb-module deploy-name="worktech_final">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
 		<wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+<<<<<<< HEAD
+=======
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+>>>>>>> e1e1facd4ab75629b83e369a1bc9abc4b3203df5
 		<property name="java-output-path" value="target/classes"/>
         <property name="context-root" value="worktech"/>
 	</wb-module>

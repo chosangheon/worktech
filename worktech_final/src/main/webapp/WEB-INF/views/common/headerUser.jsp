@@ -12,11 +12,17 @@
     <link rel="stylesheet" href="resources/dist/assets/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/dist/assets/modules/fontawesome/css/all.min.css">
 
+    <!-- jstree -->
+	<link rel="stylesheet" href="resources/dist/themes/default/style.min.css" />
     <!-- CSS Libraries -->
-
+	<link rel="stylesheet" href="resources/dist/assets/modules/summernote/summernote-bs4.css">
+	<link rel="stylesheet" href="resources/dist/assets/modules/codemirror/lib/codemirror.css">
+	<link rel="stylesheet" href="resources/dist/assets/modules/codemirror/theme/duotone-dark.css">
+	<link rel="stylesheet" href="resources/dist/assets/modules/jquery-selectric/selectric.css">
     <!-- Template CSS -->
     <link rel="stylesheet" href="resources/dist/assets/css/style.css">
     <link rel="stylesheet" href="resources/dist/assets/css/components.css">
+    
     <!-- Start GA -->
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script src="resources/js/jquery-3.6.0.min.js"></script>
@@ -31,6 +37,8 @@
         gtag('config', 'UA-94034622-3');
     </script>
     <!-- /END GA -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 </head>
 
 <body>
@@ -121,7 +129,7 @@
                                 전자결재
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item has-icon text-danger">
+                            <a href="logout.me" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i>
                                 Logout
                             </a>
@@ -132,23 +140,23 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html"><img src="resources/dist/assets/img/logo.png" width="60%" height="auto"></a>
+                        <a href="home.do"><img src="resources/dist/assets/img/logo.png" width="60%" height="auto"></a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html"><img src="resources/dist/assets/img/logo_small.png" width="45%" height="auto" style="padding-top: 30%;"></a>
+                        <a href="home.do"><img src="resources/dist/assets/img/logo_small.png" width="45%" height="auto" style="padding-top: 30%;"></a>
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">User Menu</li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link has-dropdown">
+                            <a href="approvalmain.ap" class="nav-link has-dropdown">
                                 <i class="fas fa-user-friends"></i>
                                 <span>전자 결재</span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="nav-link" href="bootstrap-breadcrumb.html">새 결재 진행</a>
+                                        <a class="nav-link" href="approvalWrite.ap">새 결재 진행</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="bootstrap-alert.html">결재 대기함</a>
+                                        <a class="nav-link" href="approvalWait.ap">결재 대기함</a>
                                     </li>
                                     <li>
                                         <a class="nav-link" href="bootstrap-badge.html">결재 진행함</a>
@@ -174,10 +182,10 @@
                                 <span>주소록</span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="nav-link" href="components-article.html">사내 주소록</a>
+                                        <a class="nav-link" href="adbookList.ab">사내 주소록</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="components-avatar.html">개인 주소록</a>
+                                        <a class="nav-link" href="pAdbookList.ab">개인 주소록</a>
                                     </li>
                                 </ul>
                         </li>
@@ -187,7 +195,7 @@
                                 <span>예약</span></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="nav-link" href="components-article.html">회의실 예약</a>
+                                    <a class="nav-link" href="rvMeetingRoomView.rv">회의실 예약</a>
                                 </li>
                                 <li class="dropdown">
                                     <a class="nav-link has-dropdown" href="components-avatar.html">
@@ -212,7 +220,7 @@
                                     <a class="nav-link" href="noticeList.ad">공지사항 게시판</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="components-avatar.html">일반 게시판</a>
+                                    <a class="nav-link" href="commonList.bo">일반 게시판</a>
                                 </li>
                                 <li>
                                     <a class="nav-link" href="components-chat-box.html">익명 게시판</a>
@@ -262,7 +270,15 @@
     <script src="resources/dist/assets/modules/moment.min.js"></script>
     <script src="resources/dist/assets/js/stisla.js"></script>
 
+	<!-- jstree -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+	<script src="resources/dist/jstree.min.js"></script>
     <!-- JS Libraies -->
+	<script src="resources/dist/assets/modules/summernote/summernote-bs4.js"></script>
+	<script src="resources/dist/assets/modules/codemirror/lib/codemirror.js"></script>
+	<script src="resources/dist/assets/modules/codemirror/mode/javascript/javascript.js"></script>
+	<script src="resources/dist/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+			
 
     <!-- Page Specific JS File -->
 
@@ -270,11 +286,46 @@
     <script src="resources/dist/assets/js/scripts.js"></script>
     <script src="resources/dist/assets/js/custom.js"></script>
 
+
+	
 	<script>
 		function chatOpen() {
-			window.open('chatView.ct', '채팅', 'width=500px, height=600px');
+			window.open('chatView.ct', '채팅', 'width=500px, height=600px, resizable=no, toolbar=1');
 		}
 	
+		// 알림 관련
+		var socket = null;
+		
+		function connectWs() {
+			// SockJS 라이브러리를 이용하여 서버에 연결
+			var sock = new SockJS('http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/alarm');
+			socket = sock;
+			// 이벤트 리스터(커넥션이 연결되었을 때 서버 호출된다)
+			sock.onopen = function() {
+				console.log('info: connection opened.');
+			}
+			
+			// 서버에 메시지를 보내주며 함수가 호출된다.
+			// 메세지를 보냈을 때 호출
+			sock.onmessage = function(evt){
+				console.log('info: connection onmessage');
+			}
+			
+			// 서버가 끊겼을 때 호출
+			sock.onclose = function(){
+				console.log('info: connect close');
+			};
+			
+			// 에러가 발생했을 때 호출
+			sock.onerror = function(err){
+				console.log('Errors : ', err);
+			}
+		}
+		
+		$(document).ready(function(){
+			connectWs();
+		});
+		
 	</script>
 </body>
 

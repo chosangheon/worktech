@@ -208,6 +208,9 @@ public class MemberController {
 		// 관리자
 		ArrayList<Member> aList = mService.selectAdminList(pi);
 		
+<<<<<<< HEAD
+=======
+>>>>>>> 0e27498090a37826a33b608f09523268495be7ae
 		if(result > 0) {
 			model.addAttribute("mList", mList);
 			model.addAttribute("aList", aList);
@@ -274,10 +277,13 @@ public class MemberController {
 							   @RequestParam("searchValue") String value,
 							   @RequestParam(value="page", required=false) Integer page, Model model ) {
 		
+<<<<<<< HEAD
+=======
 		// 검색 조건 :  searchCondition | 검색 내용 : searchValue
 		HashMap<String, String> map = new HashMap<>();
 		map.put("condition", condition);
 		map.put("value", value);
+>>>>>>> 0e27498090a37826a33b608f09523268495be7ae
 		
 		// 페이징 처리
 		int currentPage = 1;

@@ -112,11 +112,8 @@ td {
 			<section class="section">
 				<div class="section-header">
 					<div class="row mb-2">
-						<div class="col-sm-6">
 							<h1>휴지통</h1>
 							<div class="section-header-breadcrumb"></div>
-						</div>
-
 					</div>
 				</div>
 				<!-- /.container-fluid -->
@@ -151,7 +148,7 @@ td {
 									<li class="nav-item"><a href="templist.mail" class="nav-link templist">
 									<i class="far fa-file-alt mail-icon"></i> 임시보관함 </a></li>
 									<li class="nav-item"><a href="favoriteslist.mail" class="nav-link favoriteslist"> 
-									<i class="far fa-star favorites" id="favorites-icon"></i>즐겨찾기 </a></li>
+									<i class="far fa-star favorites" id="favorites-icon"></i> 즐겨찾기 </a></li>
 									<li class="nav-item"><a href="deletelist.mail" class="deletelist nav-link"> 
 									<i class="far fa-trash-alt mail-icon"></i> 휴지통 </a></li>
 								</ul>
@@ -275,12 +272,12 @@ td {
 																<i class="fas fa-paperclip"></i>
 															</c:if></td>
 														<%-- 														${mi.mailSRList.get(0).sRStatus } --%>
-														<c:if test="${ mi.mailSRList.get(0).mNo != loginUser.mNo}">
+														<c:if test="${ mi.mailSRList.get(0).MNo != loginUser.mNo}">
 															<td class="mailbox-name"><a href=#>${mi.senderName }</a></td>
 															<td onclick="location.href='${mdetail}'" style="cursor: pointer;" class="mailbox-subject"><span class="mailSR-info">[받은메일함]</span>
 																${mi.etitle }</td>
 														</c:if>
-														<c:if test="${ mi.mailSRList.get(0).mNo == loginUser.mNo}">
+														<c:if test="${ mi.mailSRList.get(0).MNo == loginUser.mNo}">
 															<td class="mailbox-name"><a href=#>${mi.receiveEmp }</a></td>
 															<td onclick="location.href='${mdetail}'" style="cursor: pointer;" class="mailbox-subject"><span class="mailSR-info">[보낸메일함]</span>
 																${mi.etitle }</td>

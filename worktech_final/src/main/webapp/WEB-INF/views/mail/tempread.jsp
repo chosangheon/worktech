@@ -225,28 +225,21 @@ td {
 </style>
 
 </head>
-<body class="hold-transition sidebar-mini">
-	<div class="wrapper">
+<body>
+	<div>
 		<jsp:include page="../common/headerUser.jsp"></jsp:include>
 
 		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<div class="container-fluid">
+		<div class="main-content">
+			<section class="section">
+				<div class="section-header">
 					<div class="row mb-2">
-						<div class="col-sm-6">
-							<h1>메일 보내기</h1>
+							<h1>메일 임시저장읽기</h1>
 							<div class="section-header-breadcrumb"></div>
-						</div>
 					</div>
 				</div>
-				<!-- /.container-fluid -->
 			</section>
-
-			<!-- Main content -->
-			<section class="content">
-				<div class="container-fluid">
+				
 					<div class="row">
 						<div class="col-md-3">
 						<div class="card">
@@ -272,7 +265,7 @@ td {
 									<li class="nav-item"><a href="templist.mail" class="nav-link templist">
 									<i class="far fa-file-alt mail-icon"></i> 임시보관함 </a></li>
 									<li class="nav-item"><a href="favoriteslist.mail" class="nav-link favoriteslist"> 
-									<i class="far fa-star favorites" id="favorites-icon"></i>즐겨찾기 </a></li>
+									<i class="far fa-star favorites" id="favorites-icon"></i> 즐겨찾기 </a></li>
 									<li class="nav-item"><a href="deletelist.mail" class="deletelist nav-link"> 
 									<i class="far fa-trash-alt mail-icon"></i> 휴지통 </a></li>
 								</ul>
@@ -292,18 +285,15 @@ td {
 									enctype="Multipart/form-data">
 									<div class="card-body">
 										<input type="hidden" value="${loginUser.mNo}"
-											name="senderMailId" /> <input type="hidden"
-											value="${loginUser.Name}" name=senderName /> <input
-											type="hidden" value="${mail.mailNo}" name=mailNo />
+											name="senderMailId" /> 
+<%-- 											<input type="hidden" value="${loginUser.Name}" name=senderName /> --%>
+											 <input type="hidden" value="${mail.mailNo}" name=mailNo />
 
 										<div class="mailsubtitle-flex-container">
 											<div class="mailsubtitle-left">
 												<b>받는 사람</b>
 											</div>
-											<div>
-												<button type="button" class="btn btn-sm btn-primary"
-													style="background-color: #007BFF" id="chart">조직도</button>
-											</div>
+
 											<div class="form-group mailsubtitle-right">
 												<input type="email" id="email"
 												  	class="form-control mail-subtitle" placeholder="받는 이"

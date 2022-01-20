@@ -98,7 +98,8 @@
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
             <nav class="navbar navbar-expand-lg main-navbar">
-                <form class="form-inline mr-auto" id="searchItem">
+            	<c:url var="searchAdbook" value="searchAdbook.ab"/>
+                <form class="form-inline mr-auto" id="searchItem" action="${ searchAdbook }">
                     <ul class="navbar-nav mr-3">
                         <li>
                             <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg">
@@ -112,8 +113,8 @@
                         </li>
                     </ul>
                     <div class="search-element">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search"
-                            data-width="250">
+                        <input class="form-control" type="search" placeholder="이름 · 전화번호 · 이메일" aria-label="Search"
+                            data-width="250" name="searchValue">
                         <button class="btn" type="submit" id="searchIcon">
                             <i class="fas fa-search"></i>
                         </button>
@@ -259,6 +260,7 @@
                             </ul>
                         </li>
                         <li class="dropdown">
+<<<<<<< HEAD
 
                             <a href="myCal.cr" class="nav-link has-dropdown">
                                 <i class="fas fa-th"></i>
@@ -266,13 +268,14 @@
                             <a href="#" class="nav-link has-dropdown">
                                 <i class="fas fa-calendar-alt"></i>
 
+=======
+                            <a href="myCal.cr" class="nav-link has-dropdown">
+                                <i class="fas fa-calendar-alt"></i>
+>>>>>>> b4f549141eb9c5a5eccdb88720346b9a9f04ebb9
                                 <span>캘린더</span></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a class="nav-link" href="myCal.cr">개인 캘린더</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="teamCal.cr">팀 캘린더</a>
                                     </li>
                                 </ul>
                         </li>
@@ -348,7 +351,7 @@
 				console.log('info: connection onmessage');
 				var data = evt.data;
 				
-				const arr = data.split(",");
+				var arr = data.split(",");
 				
 				var today = new Date();
 				var month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -371,6 +374,7 @@
 				
 				$($a).prependTo('#alarmListDiv');
 				
+				// 화면 우측 하단 알림 메세지 영역
 				$aContainer = $('<div class="aContainer">');
 				$iconDiv = $('<div class="dropdown-item-icon bg-primary text-white iconDiv aItem">').html('<i class="fas fa-bell alarmIcon aItem"></i>');
 				$msg = $('<div class="aItem">').html('새로운 알림이 도착했습니다.');

@@ -54,9 +54,7 @@
 								<div class="card-header-form">
 									
 									<!-- 개인 주소록 검색 -->
-									<c:url var="searchpAdbook" value="searchpAdbook.ab">
-										<c:param name="page" value="${ pi.currentPage }"/>
-									</c:url>
+									<c:url var="searchpAdbook" value="searchpAdbook.ab"/>
 									<form action="${ searchpAdbook }">
 										<div class="input-group">
 											<input type="text" class="form-control" name="searchValue" placeholder="Search">
@@ -246,7 +244,6 @@
 				var checkArr = [];
 				$('input[name=pAdCheckbox]:checked').each(function(i){
 					checkArr.push($(this).val());
-					
 				});
 
 				location.href="pAdbookDelete.ab?checked=" + checkArr;

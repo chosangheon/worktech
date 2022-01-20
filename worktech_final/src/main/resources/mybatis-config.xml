@@ -38,6 +38,10 @@
 		<mapper resource="mappers/alarm-mapper.xml"/>
 		<mapper resource="mappers/commut-mapper.xml"/>
 		<mapper resource="mappers/mail-mapper.xml"/>
+<<<<<<< HEAD
+=======
+		<mapper resource="mappers/calendar-mapper.xml"/>
+>>>>>>> b4f549141eb9c5a5eccdb88720346b9a9f04ebb9
 	</mappers>
 	
 </configuration>

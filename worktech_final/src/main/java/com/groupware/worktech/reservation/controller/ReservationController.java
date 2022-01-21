@@ -370,7 +370,7 @@ public class ReservationController {
 	public void updateMyOtherReservation() {
 	
 		int result = rvService.updateMyOtherReservation();
-		
+		 
 		if(result > 0) {
 			System.out.println("들어왔나요?");
 		}

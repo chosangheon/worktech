@@ -36,6 +36,7 @@ import com.groupware.worktech.board.model.exception.BoardException;
 import com.groupware.worktech.board.model.service.BoardService;
 import com.groupware.worktech.board.model.vo.Board;
 import com.groupware.worktech.board.model.vo.BoardFile;
+import com.groupware.worktech.board.model.vo.Category;
 import com.groupware.worktech.board.model.vo.Reply;
 import com.groupware.worktech.common.PageInfo;
 import com.groupware.worktech.common.Pagination;
@@ -51,6 +52,8 @@ public class BoardController {
 	
 	@RequestMapping("commonList.bo")
 	public String commonBoardList(@RequestParam(value="page", required=false) Integer page, @RequestParam(value="category", required=false) Integer category, Model model) {
+		ArrayList<Category> cList = bService.selectAllCategory();
+		
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -71,6 +74,7 @@ public class BoardController {
 			model.addAttribute("pi", pi);
 			model.addAttribute("list", list);
 			model.addAttribute("category", category);
+			model.addAttribute("cList", cList);
 		} else {
 			throw new BoardException("일반 게시판 전체 조회에 실패하였습니다.");
 		}
@@ -442,37 +446,89 @@ public class BoardController {
 		return jsonObject.toString();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 화상회의 게시판
-	@RequestMapping("zoom.bo")
+		@RequestMapping("zoom.bo")
 	public /*String*/ModelAndView zBoardList(@RequestParam(value="page", required=false) Integer page, /*Model model*/ ModelAndView mv) {	
-		
-		int currentPage = 1;
-		if(page != null) {
-			currentPage = page;
-		}
-		
-		int listCount = bService.getZListCount();
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Board> list = bService.selectZList(pi);
-		
-		if(list != null) {
-			mv.addObject("pi", pi);
-			mv.addObject("list", list);
-			mv.setViewName("zoomListView");
 			
-		} else {
-			throw new BoardException("게시글 전체 조회에 실패하였습니다.");
+			int currentPage = 1;
+			if(page != null) {
+				currentPage = page;
+			}
+			
+			int listCount = bService.getZListCount();
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Board> list = bService.selectZList(pi);
+			
+			if(list != null) {
+				mv.addObject("pi", pi);
+				mv.addObject("list", list);
+				mv.setViewName("zoomListView");
+				
+			} else {
+				throw new BoardException("게시글 전체 조회에 실패하였습니다.");
+			}
+			
+			return mv;
 		}
 		
-		return mv;
-	}
+		@RequestMapping("zinsertView.bo")
+		public String insertView() {
+			return "zoomInsertForm";
+		}
+		
+		@RequestMapping("zinsert.bo")
+		public String zoomInsert(@ModelAttribute Board b) {
+			System.out.println("b"+b);
+			
+			int result = bService.zoomInsert(b);
+			
+			if(result>0) {
+				return "redirect:zoom.bo";
+			} else {
+				throw new BoardException("게시글 등록 실패");
+			}
+		}
+		
+		@RequestMapping("zoomdetail.bo")
+		public String zoomDetail(@RequestParam("bNo") int bNo, @RequestParam(value="page", required=false) Integer page, 
+							Model model) {
+			Board b = bService.selectZoom(bNo);
+
+			if(b != null) {
+			model.addAttribute("b", b);
+			model.addAttribute("page", page);
+			} else {
+			throw new BoardException("게시글 상세 조회에 실패하였습니다.");
+			}
+			
+			return "zoomDetail";
+			} 
+		
+		@RequestMapping("zoomDelete.bo")
+		public String zoomDelete(@RequestParam("bNo") int bNo, Model model) {
+			Board b = bService.selectZoom(bNo);
+			
+			int result = bService.zoomDelete(bNo);
+			
+			if(result > 0) {
+				return "redirect:zoom.bo";
+			} else {
+				throw new BoardException("게시글 삭제에 실패하였습니다.");
+			}
+		}
+		
 	
-	@RequestMapping("zinsertView.bo")
-	public String insertView() {
-		return "zoomInsertForm";
-	}
 	
 	
 	
@@ -604,7 +660,7 @@ public class BoardController {
 	
 	
 	
-	
+
 	
 	// 익명 게시판
 

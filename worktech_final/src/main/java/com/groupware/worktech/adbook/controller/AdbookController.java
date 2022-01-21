@@ -2,7 +2,6 @@ package com.groupware.worktech.adbook.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.groupware.worktech.adbook.model.exception.AdbookException;
 import com.groupware.worktech.adbook.model.service.AdbookService;
 import com.groupware.worktech.adbook.model.vo.Adbook;
+import com.groupware.worktech.admin.model.service.AdminService;
+import com.groupware.worktech.admin.model.vo.Department;
 import com.groupware.worktech.common.PageInfo;
 import com.groupware.worktech.common.Pagination;
 import com.groupware.worktech.member.model.vo.Member;
@@ -27,11 +28,16 @@ public class AdbookController {
 	@Autowired
 	private AdbookService abService;
 	
+	@Autowired
+	private AdminService aService;
+	
 	@RequestMapping("adbookList.ab")
 	public String adbookList(@RequestParam(value="page", required=false) Integer page,
 							 @RequestParam(value="selectCategory", required=false) String selectCategory, 
 							 @RequestParam(value="selectValue", required=false) String selectValue,
 							 Model model) {
+		ArrayList<Department> dList = aService.selectDepList();
+		
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -52,6 +58,7 @@ public class AdbookController {
 			model.addAttribute("pi", pi);
 			model.addAttribute("selectCategory", selectCategory);
 			model.addAttribute("selectValue", selectValue);
+			model.addAttribute("dList", dList);
 		} else {
 			throw new AdbookException("사내 주소록 조회에 실패하였습니다.");
 		}

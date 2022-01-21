@@ -244,75 +244,22 @@ public class ReservationController {
 	}
 	
 	@RequestMapping("otherReservationInsert.rv")
-	public String orvInsert(@ModelAttribute Reservation r, @RequestParam("startTime") String startTime,
-							@RequestParam("endTime") String endTime, @RequestParam("rvName") String rvName,
-							@RequestParam("rvpNo") int rvpNo, @RequestParam("rvCount") int rvCount, HttpSession session) {
+	public String orvInsert(@ModelAttribute Reservation r, HttpSession session) {
 		
 		String rvMember = ((Member)session.getAttribute("loginUser")).getmNo();
 		
 		r.setRvMember(rvMember);
 		
-		startTime = String.format("%1$tY-%1$tm-%1$td", r.getRvDate()) + " " + startTime + ":00";
-		endTime = String.format("%1$tY-%1$tm-%1$td", r.getRvDate()) + " " + endTime + ":00";
-		
-		Timestamp rvStartTime = Timestamp.valueOf(startTime);
-		Timestamp rvEndTime = Timestamp.valueOf(endTime);
-		
-		r.setRvStartTime(rvStartTime);
-		r.setRvEndTime(rvEndTime);
-		
-		Reservation rvp = new Reservation(rvpNo, rvCount);
-		
-		int countUpdate = rvService.getCountUpdate(rvp);
+		int countUpdate = rvService.getCountUpdate(r);
 		
 		int result = rvService.insertOtherReservation(r);
 		
-		if(result > 0) {
+		if(result > 0 && countUpdate > 0) {
 			return "redirect:orvList.rv";			
 		} else { 
 			throw new RvException("기타 예약에 실패하였습니다.");
 		}
 		
-	}
-	
-	@RequestMapping("checkTime2.rv")
-	public void checkDupTime2(@RequestParam("rvStartTime") Date startTime, @RequestParam("rvEndTime") Date endTime,
-							HttpServletResponse response) {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-		String strStartTime = sdf.format(startTime);
-		String strEndTime = sdf.format(endTime);
-
-		Date rvStartTime = null;
-		Date rvEndTime = null;
-		try {
-			rvStartTime = sdf.parse(strStartTime);
-			rvEndTime = sdf.parse(strEndTime);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		
-		if(rvStartTime != null && rvEndTime != null) {
-			ArrayList<Reservation> list = rvService.getOrvList();
-			
-			int result = 0;
-			for(Reservation li : list) {
-				Date start = li.getRvStartTime();
-				Date end = li.getRvEndTime();
-				
-				// rvStartTime : 입력받은 시작 시간
-				// rvEndTime : 입력받은 종료 시간
-				// start : DB에 저장되어 있는 시작 시간
-				// end : DB에 저장되어 있는 종료 시간
-
-			}
-			
-			try {
-				response.getWriter().println(result);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	@RequestMapping("myOrvList.rv")
@@ -359,10 +306,12 @@ public class ReservationController {
 		
 		if(result > 0) {
 			int countDelete = rvService.getCountDelete(rvp);
-			return "redirect:myOrvList.rv";			
-		} else {
-			throw new RvException("나의 예약 목록 신청 취소에 실패하였습니다.");
-		}
+			if(countDelete > 0) {
+				return "redirect:myOrvList.rv";			
+			}
+		} 
+		
+		throw new RvException("나의 예약 목록 신청 취소에 실패하였습니다.");
 		
 	} 
 	

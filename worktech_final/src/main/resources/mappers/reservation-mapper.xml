@@ -83,7 +83,7 @@
 	
 	<insert id="insertOtherReservation">
 		insert into reservation
-		values (SEQ_RV.NEXTVAL, #{rvType}, #{rvpNo}, #{rvName}, #{rvCount}, #{rvDate}, #{rvStartTime}, #{rvEndTime}, #{rvUsage}, #{rvMember}, DEFAULT)
+		values (SEQ_RV.NEXTVAL, #{rvType}, #{rvpNo}, #{rvName}, #{rvCount}, SYSDATE, SYSDATE, SYSDATE, #{rvUsage}, #{rvMember}, DEFAULT)
 	</insert>
 	
 	<select id="getOrvList" resultMap="otherReservationResultSet">
@@ -112,7 +112,7 @@
 		where pd_no=#{rvpNo}
 	</update>
 	
-		<select id="selectMyOrvList" resultMap="myOrvResultSet">
+	<select id="selectMyOrvList" resultMap="myOrvResultSet">
 		select rv_no, rv_type, rvp_no, rv_name, rv_date, rv_start_time, 
 				rv_end_time, rv_usage, rv_member, rv_status, pd_category as rv_category
 		from reservation

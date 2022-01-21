@@ -4,7 +4,6 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
 	<title>새 결재 진행</title>
 	
 	<!-- jstree -->
@@ -17,13 +16,54 @@
 	<link rel="stylesheet" href="resources/dist/assets/modules/jquery-selectric/selectric.css">
 
 	<style>
+        .inputData {
+            border: 1px #dff5fa solid;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+        	
 		.section-header{
 			padding: 20px, 35px;
 			margin: -10px, -30px, 30px;
 		}
+		
 		.container {
 		  margin-top: 20px;
 		}
+		
+		:disabled,
+        input[type="text"]:disabled,
+        input[type="date"]:disabled,
+        input[type="number"]:disabled {
+            background: #fdfdff;
+        }		
+		
+	    .filebox .upload-name {
+            display: inline-block;
+            height: 40px;
+            padding: 0 45px;
+            vertical-align: middle;
+            border: 1px solid #dff5fa;
+            width: 86%;
+            color: #999999;
+            border-radius: 3px;
+            background-color: #ffffff00;
+        }
+        
+        .filebox label {
+            color: #fff;
+        }
+        
+        .filebox input[type="file"] {
+            position: absolute;
+            width: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+        }
+            
 	</style>
 </head>
 
@@ -39,57 +79,60 @@
 					<div class="breadcrumb-item">새 결재 작성</div>
 				</div>
     		</div>
-
-			<div class="row">
-				<div class="col-12 col-md-8 col-lg-8">
-					<div class="card">
+			
+			<div class="section-body">
+				<form action="appinsert.ap" method="post" enctype="Multipart/form-data">
+				<div class="row">
+					<div class="col-12 col-md-12 col-lg-12">
+						<div class="card">
 						<div class="card-header">
 							<h4>새 결재 작성</h4>
 						</div>
+						
 						<div class="card-body">
 							<div class="form-group row mb-4">
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">문서 제목</label>
 								<div class="col-sm-12 col-md-7">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" name="appTitle" value="">
 								</div>
                     		</div>
+							<div class="form-group row mb-4">
+								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">결재 작성자</label>
+								<div class="col-sm-12 col-md-7">
+		                            <input type="text" class="form-control" disabled value="${ loginUser.name } ${loginUser.jobGrade} ">
+		                            <input type="hidden" name="appWriter" value="${ loginUser.mNo }">
+	                            </div>
+                    		</div>       
+                    		             		
 	                    	<div class="form-group row mb-4">
-	                      		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">문서 양식</label>
-	                      		<div class="col-sm-12 col-md-7">
-	                        		<input type="text" class="form-control">
+	                      		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">문서 첨부</label>
+	                      		<div class="col-sm-12 col-md-7 ">
+	                        		<input type="text" class="upload-name form-control" id="uploadName" value="" disabled>
 	                      		</div>
-	                      		<!-- <div><a href="#myModal" data-toggle="modal" class="btn btn-info">문서선택</a></div> -->
-	                      		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#appform">문서선택</button>                
-	                    	</div>
-	                    	
+	                      		<div class="filebox">
+	                      		<label class="btn btn-info" for="file">문서선택</label>
+	                      		<input type="file" name="uploadAppFile" id="file" class="ex_file" multiple="multiple" accept=".xlsx"> 
+	                      		</div>
+	                    	</div>   
+	                    	    	
 	                    	<div class="form-group row mb-4">
 	                      		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">결재선</label>
 	                      		<div class="col-sm-12 col-md-7">
-	                       			<input type="text" class="form-control">
+	                      			<input type="text" class="form-control" id="appLiMemberName" name="appLiMemberName">
+	                       			<input type="hidden" class="form-control" id="appLiMember" name="appLiMember">
 	                     		</div>
 	                     		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#appLine">찾기</button>
 	                    	</div>
 	                    	<div class="form-group row mb-4">
 	                      		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">수신참조</label>
 	                      		<div class="col-sm-12 col-md-7">
-	                        		<input type="text" class="form-control">
-	                      		</div>
-	                      		<div><a href="#" class="btn btn-info">찾기</a></div>
+	                      			<input type="text" class="form-control" id="appRefMemberName" name="appRefMemberName">
+	                       			<input type="hidden" class="form-control" id="appRefMember" name="appRefMember">
+	                     		</div>
+	                     		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#appLine2">찾기</button>
 	                    	</div>
-	                    	<div class="form-group row mb-4">
-	                      		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">첨부파일</label>
-	                      		<div class="col-sm-12 col-md-7">
-	                        		<input type="text" class="form-control">
-	                      		</div>
-	                      		<div><a href="#" class="btn btn-info">찾기</a></div>
-	                    	</div>
-<!-- 	                    	<div class="form-group col-md-12 col-12">
-	                      		<div>
-	                        		<textarea class="summernote"></textarea>
-	                      		</div>
-	                    	</div> -->
-	                    	<div class="col-sm-12 col-md-12">
-								<textarea class="summernote" style="display: none;"></textarea>
+							<div class="col-sm-12 col-md-12">
+								<textarea name="appContent" id="summernote" class="summernote" style="display: none;"></textarea>
 								<div class="note-editor note-frame card">
 								<div class="note-dropzone">  
 									<div class="note-dropzone-message"></div>
@@ -382,10 +425,9 @@
 												<div class="note-control-selection-info"></div>
 											</div>
 										</div>
-										<textarea class="note-codable"></textarea>
 										<div class="note-editable card-block" contenteditable="true" style="min-height: 250px;"><p><br></p></div>
 									</div>
-									<div class="note-statusbar">  
+									<div class="note-statusbar" name="appContent">  
 										<div class="note-resizebar">    
 										<div class="note-icon-bar"></div>    
 										<div class="note-icon-bar"></div>    
@@ -394,44 +436,21 @@
 								</div>
 							</div>
 							</div>
-	                    	<div class="form-group row mb-4">
-	                      		<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-	                      		<div class="col-sm-12 col-md-7">
-	                        		<button class="btn btn-primary">Publish</button>
-	                      		</div>
-	                    	</div>
+	                     </div>						                    	
+	                        <div class="card-footer text-right">
+	                        	<button class="btn btn-primary mr-1" type="submit">저장</button>
+	                        	<c:url var="clist" value="approvalmain.ap"/>
+	                        	<button class="btn btn-danger" type="reset" onclick="location.href='${ clist }'">취소</button>
+	                        </div>
                   		</div>                  		
 					</div>
 				</div>
-				<div class="col-12 col-md-4 col-lg-4">
-					<div class="card">
-						<div class="card-header">
-							<div class="card-body">
-								<ul class="nav nav-pills" id="myTab3" role="tablist">
-									<li class="nav-item">
-										<a class="nav-link" id="home-tab3" data-toggle="tab" href="#home3" role="tab" aria-controls="home" aria-selected="false">결재선</a>
-									</li>
-	                     			 <li class="nav-item">
-	                        			<a class="nav-link active show" id="profile-tab3" data-toggle="tab" href="#profile3" role="tab" aria-controls="profile" aria-selected="true">참조</a>
-	                      			</li>
-	                    		</ul>
-	                    		<div class="tab-content" id="myTabContent2">
-	                      			<div class="tab-pane fade" id="home3" role="tabpanel" aria-labelledby="home-tab3">
-	                      				<br>
-										<h3 class="card-title pricing-card-title">
-							   				<figure class="avatar avatar-xl"><img src="resources/images/propile.png" alt="..."></figure>&nbsp;
-							   				OOO 대리
-										</h3><br>
-	                      			</div>
-	                      		<div class="tab-pane fade active show" id="profile3" role="tabpanel" aria-labelledby="profile-tab3"></div>
-	                    		</div>
-	                  		</div>
-	                  	</div>
-	                </div>
-				</div>   
+			</form>
 			</div>
-		</section>
+		</section> 
 	</div>
+	
+	<c:import url="../common/footer.jsp" />
 	
  	<div class="modal fade" id="appLine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
 		<div class="modal-dialog modal-lg" role="document">
@@ -449,31 +468,54 @@
 		          	</div>
 		        </div>
 		        <div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal" id="save">선택</button>
 		          	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 		        </div>
 			</div>
 		</div>
 	</div>
 	
+ 	<div class="modal fade" id="appLine2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">결재선 지정</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          		</div>
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+				            <div id="appline-tree2" class="well col-sm-3"></div>
+			 	            <div id="appline-result3" class="col-sm-6">결재자</div> 
+		          		</div>
+		          	</div>
+		        </div>
+		        <div class="modal-footer">
+		        	<button type="button" class="btn btn-default" data-dismiss="modal" id="save">선택</button>
+		          	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        </div>
+			</div>
+		</div>
+	</div>	
 	
-	
-	<!-- jstree -->
+  	<!-- jstree -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 	<script src="resources/dist/libs/jquery.js"></script>
 	<script src="resources/dist/jstree.min.js"></script>
 	
-    <!-- JS Libraies -->
+	<!-- JS Libraies -->
 	<script src="resources/dist/assets/modules/summernote/summernote-bs4.js"></script>
 	<script src="resources/dist/assets/modules/codemirror/lib/codemirror.js"></script>
 	<script src="resources/dist/assets/modules/codemirror/mode/javascript/javascript.js"></script>
-	<script src="resources/dist/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+	<script src="resources/dist/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>	
+	
 		
 	<script>
 	
 //  결재자 지정
 	var jsonData = [
 		{
-			id  : 1,
+			id  : 100,
 			text : "경영지원부",
 			state : {
 			selected  : false
@@ -499,16 +541,33 @@
 		
 		}, 
 		{
-			id: 4,
+			id: 200,
 		    text : "전략기획부",
 	    	state : {
 	     	selected : false
 		},
-	    	children : []
+	    	children : [
+				{
+					id  : 111111,
+					text : "이시우 사원",
+					icon : "resources/dist/themes/default/member.png",
+					state : {
+					selected  : false
+					},  
+				},
+				{
+					id  : 222222,
+					text : "김도윤 주임",
+					icon : "resources/dist/themes/default/member.png",
+					state : {
+					selected  : false
+		        	},  
+		      	}
+	    	]
 		},
 		
 		{
-		    id  : 5,
+		    id  : 300,
 		    text : "인사부",
 		    state : {
 			selected  : false
@@ -532,16 +591,33 @@
 		}, 
 		
 		{
-			id: 8,
+			id: 400,
 		    text : "기술영업부",
 		    state : {
 		    selected : false
 		},
-		    children : []
+		    children : [
+				{
+					id  : 333333,
+					text : "조민준 사원",
+					icon : "resources/dist/themes/default/member.png",
+					state : {
+					selected  : false
+					},  
+				},
+				{
+					id  : 444444,
+					text : "박준우 대리",
+					icon : "resources/dist/themes/default/member.png",
+					state : {
+					selected  : false
+		        	},  
+		      	}
+		    ]
 		},
 		
 		{
-			id: 9,
+			id: 500,
 			text : "개발부",
 			state : {
 			selected : false
@@ -549,21 +625,21 @@
 			children : []
 		},
 		{
-			id  : 10,
+			id  : 600,
 			text : "디자인부",
 			state : {
 			selected  : false
 			},
 				children    : [
 				{
-					id  : 11,
+					id  : 10,
 					text : "Sub Folder 1",
 					state : {
 					selected  : false
 					},  
 				},
 				{
-					id  : 12,
+					id  : 11,
 					text : "Sub Folder 2",
 					state : {
 					selected  : false
@@ -573,7 +649,7 @@
 		}, 
 		
 		{
-			id: 13,
+			id: 700,
 		    text : "고객관리부",
 		    state : {
 		    selected : false
@@ -582,15 +658,40 @@
 		},
 		
 		{
-			id: 14,
+			id: 800,
 			text : "품질관리부",
 			state : {
 			selected : false
 		},
-			children : []
+			children : [
+				{
+					id  : 555555,
+					text : "하지호 과장",
+					icon : "resources/dist/themes/default/member.png",
+					state : {
+					selected  : false
+					},  
+				},
+				{
+					id  : 666666,
+					text : "김지아 부장",
+					icon : "resources/dist/themes/default/member.png",
+					state : {
+					selected  : false
+		        	},  
+		      	},
+				{
+					id  : 777777,
+					text : "이지유 팀장",
+					icon : "resources/dist/themes/default/member.png",
+					state : {
+					selected  : false
+		        	},  
+		      	}
+			]
 		},
 		{
-			id  : 15,
+			id  : 900,
 			text : "미주영업부",
 			state : {
 			selected  : false
@@ -618,7 +719,10 @@
 	$('#appline-tree')
 	  .on('changed.jstree', function (e, data) {
 	    var objNode = data.instance.get_node(data.selected);
-	    $('#appline-result').html('Selected: <br/><strong>' + objNode.id+'-'+objNode.text+'</strong>');
+	    $('#appline-result').html('결재자: <br/><strong>' + objNode.text+'</strong>');
+	    $('#appLiMemberName').val(objNode.text);
+	    $('input[name=appLiMemberName]').val(objNode.text);
+ 	    $('input[name=appLiMember]').val(objNode.id); 
 	  })
 	  .jstree({
 	  core: {
@@ -626,12 +730,71 @@
 	  }
 	});
 	
-  </script>
-	
-  </script>
-	
-	
+	$('#appline-tree2')
+	  .on('changed.jstree', function (e, data) {
+	    var objNode = data.instance.get_node(data.selected);
+	    $('#appline-result3').html('수신/참조자: <br/><strong>' + objNode.text+'</strong>');
+	    $('#appRefMemberName').val(objNode.text);
+	    $('input[name=appRefMemberName]').val(objNode.text);
+ 	    $('input[name=appRefMember]').val(objNode.id); 
+	  })
+	  .jstree({
+	  core: {
+	    data: jsonData
+	  }
+	});
+	  
+    $(function () {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var date = now.getDate();
+        $('input[name=bDate]').val(year + '-' + month + '-' + date);
+    });	
+    
+    $("#file").on('change', readInputFile);
 
+    // 파일 업로드
+    function readInputFile(e) {
+        var fileInput = document.getElementsByClassName("ex_file");
+        var name = document.getElementById("uploadName").value;
+        var area = document.getElementById("uploadName");
+
+        var sel_files = [];
+
+        sel_files = [];
+
+        var files = e.target.files;
+        var fileArr = Array.prototype.slice.call(files);
+
+        fileArr.forEach(function (f) {
+            if (files.length < 4) {
+                sel_files.push(f);
+                var reader = new FileReader();
+                reader.readAsDataURL(f);
+                area.value = "";
+
+                for (var i = 0; i < fileInput.length; i++) {
+                    if (fileInput[i].files.length > 0) {
+                        for (var j = 0; j < fileInput[i].files.length; j++) {
+                            if (j == 0) {
+                                area.value += fileInput[i].files[j].name;
+                            } else {
+                                area.value += ", " + fileInput[i].files[j].name;
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        if (files.length > 4) {
+            alert("파일은 최대 3개까지 업로드 가능합니다.");
+        }
+    }
+  </script>
+  
+
+ 
 	
 </body>
 </html>

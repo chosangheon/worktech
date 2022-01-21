@@ -75,5 +75,9 @@ public class RvService {
 		return rvDAO.updateMyOtherReservation(sqlSession);
 	}
 
+	public RvProduct getRvpInfo(int rvpNo) {
+		return rvDAO.getRvpInfo(sqlSession, rvpNo);
+	}
+
 	
 }

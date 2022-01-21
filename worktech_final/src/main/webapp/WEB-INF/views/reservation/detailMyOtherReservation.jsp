@@ -50,8 +50,7 @@
 		cursor: pointer;
 	}
 	.btn_class{
-		margin-left: 23%;
-		margin-bottom: 5%;
+		text-align: center;
 	}
 	.first{
 		width: 150px;
@@ -76,15 +75,8 @@
 				<td>${ rv.rvCount } 개</td>
 			</tr>
 			<tr>
-				<td class="first">날짜</td>
+				<td class="first">예약 날짜</td>
 				<td>${ rv.rvDate }</td>
-			</tr>
-			<tr>
-				<td class="first">예약 시간</td>
-				<td>
-					<fmt:formatDate value="${ rv.rvStartTime }" pattern="HH:mm"/>~
-					<fmt:formatDate value="${ rv.rvEndTime }" pattern="HH:mm"/>
-				</td>
 			</tr>
 			<tr>
 				<td class="first">사용 용도</td>
@@ -97,23 +89,21 @@
 			<input type="hidden" name="rvCount" id="rvCount" value="${ rv.rvCount }">
 		</div>
 		<div class="btn_class">
-			<button class="btn btn-primary mr-1" onclick="window.close();">확인</button>
-			<button class="btn btn-danger mr-1" id="15" name="rvNo" value="${ rv.rvNo }" onclick="return DetailReservation();">삭제</button>
+			<button class="btn btn-primary mr-1" onclick="window.close();">닫기</button>
+			<c:if test="${ rv.rvStatus eq 'N' }">
+				<button class="btn btn-danger mr-1" id="15" name="rvNo" value="${ rv.rvNo }" onclick="return DeleteReservation();">반납</button>
+			</c:if>
 		</div>
 
 	</div>
 <script>
-	function DetailReservation(){
+	function DeleteReservation(){
 		
 		
-		var bool = confirm('정말 삭제하시겠습니까?');
+		var bool = confirm('반납하시겠습니까?');
 		var rvNo = $('#rvNo').val();
 		var rvpNo = $('#rvpNo').val();
 		var rvCount = $('#rvCount').val();
-		
-		console.log(rvNo);
-		console.log(rvpNo);
-		console.log(rvCount);
 		
 		if(bool) {
 			$.ajax({
@@ -131,18 +121,6 @@
 		}
 
 	}
-	
-	$('#15').on('click', function(){
-		$.ajax({
-			url: 'orvListDelete.rv',
-			success: function(data){
-				console.log(data);
-			},
-			error: function(data){
-				console.log(data)
-			}
-		})
-	})
 </script>
 </body>
 </html>

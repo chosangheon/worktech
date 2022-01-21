@@ -28,12 +28,10 @@
     <script src="resources/js/jquery-3.6.0.min.js"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() {
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
-
         gtag('config', 'UA-94034622-3');
     </script>
     <!-- /END GA -->
@@ -304,9 +302,9 @@
 
 	<script>
 		// todo 팝업
-    function openTodo() {
-       window.open('todo.to', '투두 리스트', 'width=1250px, height=850px');
-    }
+	    function openTodo() {
+	       window.open('todo.to', '투두 리스트', 'width=1250px, height=850px');
+	    }
 	</script>
 
 
@@ -350,7 +348,6 @@
 			// SockJS 라이브러리를 이용하여 서버에 연결
 			var sock = new SockJS('http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/alarm');
 			socket = sock;
-
 			// 커넥션 연결되었을 때 호출
 			sock.onopen = function() {
 				console.log('info: connection opened.');
@@ -418,7 +415,6 @@
 		function alarmList() {
 			$('#alarmListDiv').css({overflow:'auto'});
 			$('#alarmListDiv').getNiceScroll().resize();
-
 			var mNo = '${ loginUser.mNo }';
 			
 			$.ajax({

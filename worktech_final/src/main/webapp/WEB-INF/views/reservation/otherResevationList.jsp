@@ -36,6 +36,25 @@
     <!-- /END GA -->
 
     <style>
+
+table {
+            border-collapse: collapse;
+            background: white;
+        }
+
+        table th {
+            border-bottom: 1px solid #e3e3e3;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        table td {
+            border-bottom: 1px solid #e3e3e3;
+            text-align: center;
+            font-size: 15px;
+        }
+
+
 .content{
 	margin: 0 auto;
  	margin-left: 30px;
@@ -110,6 +129,18 @@
             display: flex;
             justify-content: center;
         }
+        
+        h4.section-title {
+			top: -13px;
+			display: inline;
+		}
+	
+		h4.section-title:hover{
+			cursor: pointer;
+			color: #67d4ef;
+		}
+		
+		
     </style>
 </head>
 	<c:if test="${ loginUser.mGrade eq 'USER' }">
@@ -132,19 +163,22 @@
 
                     <div class="section-body">
                         <div class="row">
-                      	   <h2 class="section-title">예약 자원 목록</h2>
+<!--                       	   <h2 class="section-title">예약 자원 목록</h2> -->
                             <div class="col-12 col-md-12 col-lg-12">
                                 <div class="card">
                                      <div class="card-header"> 
+                                       <c:url var="usotherRList" value="orvList.rv"/>
+									   <h4 style="font-size: 20px;" class="section-title" onclick="location.href='${ usotherRList }'">예약 자원 목록</h4>
+                                       
                                        <!--  <h4>예약 자원 목록</h4> -->
                                     </div>
                                     <div class="card-body">
                                         <table class="table" id="orvTable">
                                             <thead>
 												<tr>
-													<th class="first_td" style="border-left: 1px solid #e3e3e3; width: 250px;">분류</th>
-													<th class="first_td" style="width: 500px;">자원명</th>
-													<th class="first_td" style="border-right: 1px solid #e3e3e3; width: 250px;">상태</th>
+													<th class="first_td" style=" width: 250px; font-size: 15px;">분류</th>
+													<th class="first_td" style="width: 500px; font-size: 15px;">자원명</th>
+													<th class="first_td" style=" width: 250px; font-size: 15px;">상태</th>
 												</tr>
                                             </thead>
                                             <tbody>

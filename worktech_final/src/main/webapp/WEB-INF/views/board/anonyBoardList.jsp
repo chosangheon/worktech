@@ -57,6 +57,16 @@
             display: flex;
             justify-content: center;
         }
+        
+        h4.section-title {
+			top: -13px;
+			display: inline;
+		}
+	
+		h4.section-title:hover{
+			cursor: pointer;
+			color: #67d4ef;
+		}
     </style>
 </head>
 
@@ -78,7 +88,11 @@
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 style="font-size: 20px;">익명 게시판 목록</h4>
+                                <c:url var="usAnBoList" value="anonyList.bo"/>
+								<h4 style="font-size: 20px;" class="section-title" onclick="location.href='${ usAnBoList }'">익명 게시판</h4>
+                                       
+                                
+<!--                                 <h4 style="font-size: 20px;">익명 게시판 목록</h4> -->
                             </div>
                             <div class="card-body">
                                 <table class="table" id="tb">
@@ -222,9 +236,9 @@
     <script>
 	    $(function() {
 			$('#tb tbody td').mouseenter(function() {
-				$(this).parent().css({'background':'rgba(0, 0, 0, 0.04)', 'font-weight':'bold', 'cursor':'pointer'});
+				$(this).parent().css({'color':'#6ED7F9','background':'rgba(0, 0, 0, 0.04)', 'font-weight':'bold', 'cursor':'pointer'});
 			}).mouseout(function() {
-				$(this).parent().css({'background':'white', 'font-weight':'normal'});
+				$(this).parent().css({'color':'#656D73','background':'white', 'font-weight':'normal'});
 			}).click(function() {
 				var bNo = $(this).parent().children().eq(0).text();
 				location.href="adetail.bo?bNo=" + bNo + '&page=' + ${pi.currentPage};

@@ -337,34 +337,34 @@
                     
 
             <!-- General JS Scripts -->
-            <script src="../../../resources/dist/assets/modules/jquery.min.js"></script>
-            <script src="../../../resources/dist/assets/modules/popper.js"></script>
-            <script src="../../../resources/dist/assets/modules/tooltip.js"></script>
-            <script src="../../../resources/dist/assets/modules/bootstrap/js/bootstrap.min.js"></script>
-            <script src="../../../resources/dist/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
-            <script src="../../../resources/dist/assets/modules/moment.min.js"></script>
-            <script src="../../../resources/dist/assets/js/stisla.js"></script>
+            <script src="resources/dist/assets/modules/jquery.min.js"></script>
+            <script src="resources/dist/assets/modules/popper.js"></script>
+            <script src="resources/dist/assets/modules/tooltip.js"></script>
+            <script src="resources/dist/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+            <script src="resources/dist/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+            <script src="resources/dist/assets/modules/moment.min.js"></script>
+            <script src="resources/dist/assets/js/stisla.js"></script>
 
             <!-- JS Libraies -->
 
             <!-- Page Specific JS File -->
 
             <!-- Template JS File -->
-            <script src="../../../resources/dist/assets/js/scripts.js"></script>
-            <script src="../../../resources/dist/assets/js/custom.js"></script>
+            <script src="resources/dist/assets/js/scripts.js"></script>
+            <script src="resources/dist/assets/js/custom.js"></script>
             
-            <script src="../../vendor/global/global.min.js"></script>
-	    <script src="../../js/quixnav-init.js"></script>
-	    <script src="../../js/custom.min.js"></script>
+            <script src="resources/vendor/global/global.min.js"></script>
+	    <script src="resources/js/quixnav-init.js"></script>
+	    <script src="resources/js/custom.min.js"></script>
 	    
 	    <!-- General JS Scripts -->
-  <script src="../../../resources/dist/assets/modules/jquery.min.js"></script>
-  <script src="../../../resources/dist/assets/modules/popper.js"></script>
-  <script src="../../../resources/dist/assets/modules/tooltip.js"></script>
-  <script src="../../../resources/dist/assets/modules/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../../../resources/dist/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
-  <script src="../../../resources/dist/assets/modules/moment.min.js"></script>
-  <script src="../../../resources/dist/assets/js/stisla.js"></script>
+  <script src="resources/dist/assets/modules/jquery.min.js"></script>
+  <script src="resources/dist/assets/modules/popper.js"></script>
+  <script src="resources/dist/assets/modules/tooltip.js"></script>
+  <script src="resources/dist/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+  <script src="resources/dist/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="resources/dist/assets/modules/moment.min.js"></script>
+  <script src="resources/dist/assets/js/stisla.js"></script>
   
   <!-- JS Libraies -->
 

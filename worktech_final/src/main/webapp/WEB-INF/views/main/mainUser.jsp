@@ -348,22 +348,22 @@
                   		<a href="adbookList.ab" id="more">더보기 <i class="fas fa-angle-right"></i></a>
 	                  	<table class="table table-striped" id="userTable">
 							<thead>
-								<tr>
-									<th>이름</th>
-									<th>전화번호</th>
-									<th>이메일</th>
-									<th>부서</th>
-									<th>직책</th>
+								<tr >
+									<th style="font-size : 9pt;">이름</th>
+									<th style="font-size : 9pt;">전화번호</th>
+									<th style="font-size : 9pt;">이메일</th>
+									<th style="font-size : 9pt;">부서</th>
+									<th style="font-size : 9pt;">직책</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="a" items="${ list }">
 									<tr>
-										<td>${ a.name }</td>
-										<td>${ a.phone }</td>
-										<td>${ a.email }</td>
-										<td>${ a.dName }</td>
-										<td>${ a.jobGrade }</td>
+										<td style="font-size : 9pt;">${ a.name }</td>
+										<td style="font-size : 9pt;">${ a.phone }</td>
+										<td style="font-size : 9pt;">${ a.email }</td>
+										<td style="font-size : 9pt;">${ a.dName }</td>
+										<td style="font-size : 9pt;">${ a.jobGrade }</td>
 									</tr>
 								</c:forEach>
 							</tbody>

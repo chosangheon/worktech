@@ -11,6 +11,33 @@
 	#table{
 		font-size: 13px;
 	}
+	
+	h4.section-title {
+		top: -13px;
+		display: inline;
+	}
+	
+	h4.section-title:hover{
+		cursor: pointer;
+		color: #67d4ef;
+	}
+	
+	 table {
+            border-collapse: collapse;
+            background: white;
+        }
+
+        table th {
+            border-bottom: 1px solid #e3e3e3;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        table td {
+            border-bottom: 1px solid #e3e3e3;
+            text-align: center;
+            font-size: 15px;
+        }
 </style>
 </head>
 <c:import url="../common/headerUser.jsp" />
@@ -27,17 +54,19 @@
 
                     <div class="section-body">
                         <div class="row">
-                        <h2 class="section-title">나의 예약 목록</h2>
+<!--                         <h2 class="section-title">나의 예약 목록</h2> -->
                             <div class="col-12 col-md-12 col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-
+										<c:url var="usMyOrList" value="myOrvList.rv"/>
+										<h4 style="font-size: 20px;" class="section-title" onclick="location.href='${ usMyOrList }'">나의 예약 목록</h4>
                                     </div>
                                     <div class="card-body">
                                         <table class="table">
                                             <thead>
 												<tr>
-													<th class="first_td" style="border-left: 1px solid #e3e3e3;">분류</th>
+<!-- 													<th class="first_td" style="border-left: 1px solid #e3e3e3;">분류</th> -->
+													<th class="first_td" style="width: 150px; height: 45px;">분류</th>
 													<th class="first_td">자원명</th>
 													<th class="first_td">예약 시간</th>
 													<th class="first_td" style="border-right: 1px solid #e3e3e3;">상태</th>

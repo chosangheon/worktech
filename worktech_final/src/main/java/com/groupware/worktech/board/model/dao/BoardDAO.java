@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.groupware.worktech.board.model.vo.Board;
 import com.groupware.worktech.board.model.vo.BoardFile;
+import com.groupware.worktech.board.model.vo.Category;
 import com.groupware.worktech.board.model.vo.Reply;
 import com.groupware.worktech.common.PageInfo;
 
@@ -435,6 +436,10 @@ public class BoardDAO {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectAnonySearchList", searchListMap, rowBounds);	
+	}
+
+	public ArrayList<Category> selectAllCategory(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllCategory");
 	}
 	
 	

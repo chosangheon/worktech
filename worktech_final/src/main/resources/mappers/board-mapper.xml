@@ -313,15 +313,15 @@
 		<result column="B_STATUS" property="bStatus"/>
 	</resultMap>
 	
+	<select id="selectAllCategory" resultMap="categoryResultSet">
+		select *
+		from category
+	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	<resultMap type="Category" id="categoryResultSet">
+		<id column="CATEGORY_NO" property="categoryNo"/>
+		<result column="CATEGORY_NAME" property="categoryName"/>
+	</resultMap>
 	
 	
 	
@@ -377,56 +377,6 @@
 		set b_status = 'Y'
 		where b_no = #{bNo}
 	</update>
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	<select id="selectAnonyList" resultMap="noticeResultSet">
 		select b_no, b_title, b_content, b_date, b_count, b_type, b_writer, b_status,

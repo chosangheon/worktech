@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.groupware.worktech.board.model.dao.BoardDAO;
 import com.groupware.worktech.board.model.vo.Board;
 import com.groupware.worktech.board.model.vo.BoardFile;
+import com.groupware.worktech.board.model.vo.Category;
 import com.groupware.worktech.board.model.vo.Reply;
 import com.groupware.worktech.common.PageInfo;
 
@@ -465,6 +466,10 @@ public class BoardService {
 
 	public ArrayList<Board> selectAnonySearchList(HashMap<String, Object> searchListMap) {
 		return bDAO.selectAnonySearchList(sqlSession, searchListMap);
+	}
+
+	public ArrayList<Category> selectAllCategory() {
+		return bDAO.selectAllCategory(sqlSession);
 	}
 
 	

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.groupware.worktech.board.model.vo.Board;
 import com.groupware.worktech.board.model.vo.BoardFile;
+import com.groupware.worktech.board.model.vo.Category;
 import com.groupware.worktech.board.model.vo.Reply;
 import com.groupware.worktech.common.PageInfo;
 
@@ -305,6 +306,18 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectZList", null, rowBounds);
 	}
 
+	public int zoomInsert(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.zoomInsert", b);
+	}
+
+	public Board selectZoom(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("boardMapper.zoomDetail", bNo);
+	}
+
+	public int zoomDelete(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.update("boardMapper.zoomDelete", bNo);
+	}
+
 	
 	
 	
@@ -377,7 +390,7 @@ public class BoardDAO {
 	
 	
 	
-	// 익명 게시판
+	// �씡紐� 寃뚯떆�뙋
 
 	
 
@@ -423,6 +436,10 @@ public class BoardDAO {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectAnonySearchList", searchListMap, rowBounds);	
+	}
+
+	public ArrayList<Category> selectAllCategory(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAllCategory");
 	}
 	
 	

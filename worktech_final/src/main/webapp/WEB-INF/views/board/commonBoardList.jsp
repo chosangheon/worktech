@@ -68,6 +68,16 @@
         .select:focus{
         	border: 1px solid black;
         }
+        
+        h4.section-title {
+			top: -13px;
+			display: inline;
+		}
+	
+		h4.section-title:hover{
+			cursor: pointer;
+			color: #67d4ef;
+		}
     </style>
 </head>
 
@@ -94,20 +104,21 @@
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 style="font-size: 20px;">일반 게시판 목록</h4>
+                                <c:url var="adcoBoList" value="commonList.bo"/>
+								<h4 style="font-size: 20px;" class="section-title" onclick="location.href='${ adcoBoList }'">일반 게시판 목록</h4>
+                                
+<!--                                 <h4 style="font-size: 20px;">일반 게시판 목록</h4> -->
                             </div>
                             <div class="card-body">
                             	<div class="category">
 	                            	<i class="fas fa-chevron-circle-down"></i>
-	                            	<select class="select" name="categoryNo" onchange="selectCategory(this)">
-	                            		<option selected disabled>카테고리</option>
-	                            		<option value="0">전체</option>
-	                            		<option value="100" <c:if test="${ category == 100 }">selected</c:if>>회의</option>
-	                            		<option value="200" <c:if test="${ category == 200 }">selected</c:if>>출장</option>
-	                            		<option value="300" <c:if test="${ category == 300 }">selected</c:if>>홍보</option>
-	                            		<option value="400" <c:if test="${ category == 400 }">selected</c:if>>기타</option>
-	                            		<option value="500" <c:if test="${ category == 500 }">selected</c:if>>자료</option>
-	                            	</select>
+									<select class="select" name="categoryNo" onchange="selectCategory(this)">
+										<option selected disabled>카테고리</option>
+										<option value="0">전체</option>
+										<c:forEach var="c" items="${ cList }">
+											<option value="${ c.categoryNo }" <c:if test="${ category == c.categoryNo }">selected</c:if>>${ c.categoryName }</option>
+										</c:forEach>
+									</select>
                             	</div>
                             	<br>
                                 <table class="table" id="tb">
@@ -293,9 +304,9 @@
     	
 	    $(function() {
 			$('#tb tbody td').mouseenter(function() {
-				$(this).parent().css({'background':'rgba(0, 0, 0, 0.04)', 'font-weight':'bold', 'cursor':'pointer'});
+				$(this).parent().css({'color':'#6ED7F9','background':'rgba(0, 0, 0, 0.04)', 'font-weight':'bold', 'cursor':'pointer'});
 			}).mouseout(function() {
-				$(this).parent().css({'background':'white', 'font-weight':'normal'});
+				$(this).parent().css({'color':'#656D73','background':'white', 'font-weight':'normal'});
 			}).click(function() {
 				var bNo = $(this).parent().children().eq(0).text();
 				

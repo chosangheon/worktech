@@ -87,20 +87,15 @@ h4.section-title:hover {
 												<th>이름</th>
 												<th>전화번호</th>
 												<th>이메일</th>
-												<th><select class="select" name="dept" id="dept"
-													onchange="selectAdbook(this)">
-														<option selected disabled>부서</option>
-														<option value="200" <c:if test="${ selectCategory == 'dept' && selectValue == 200 }">selected</c:if>>경영지원부</option>
-														<option value="300" <c:if test="${ selectCategory == 'dept' && selectValue == 300 }">selected</c:if>>전략기획부</option>
-														<option value="400" <c:if test="${ selectCategory == 'dept' && selectValue == 400 }">selected</c:if>>인사부</option>
-														<option value="500" <c:if test="${ selectCategory == 'dept' && selectValue == 500 }">selected</c:if>>기술영업부</option>
-														<option value="600" <c:if test="${ selectCategory == 'dept' && selectValue == 600 }">selected</c:if>>개발부</option>
-														<option value="700" <c:if test="${ selectCategory == 'dept' && selectValue == 700 }">selected</c:if>>디자인부</option>
-														<option value="800" <c:if test="${ selectCategory == 'dept' && selectValue == 800 }">selected</c:if>>고객관리부</option>
-														<option value="900" <c:if test="${ selectCategory == 'dept' && selectValue == 900 }">selected</c:if>>품질관리부</option>
-												</select></th>
-												<th><select class="select" name="job" id="job"
-													onchange="selectAdbook(this)">
+												<th>
+													<select class="select" name="dept" id="dept" onchange="selectAdbook(this)">
+														<c:forEach var="d" items="${ dList }">
+															<option value="${ d.dNo }" <c:if test="${ selectCategory == 'dept' && selectValue == d.dNo }">selected</c:if>>${ d.dName }</option>
+														</c:forEach>
+													</select>
+												</th>
+												<th>
+													<select class="select" name="job" id="job" onchange="selectAdbook(this)">
 														<option selected disabled>직책&nbsp;&nbsp;&nbsp;</option>
 														<option <c:if test="${ selectCategory == 'job' && selectValue == '사장' }">selected</c:if>>사장</option>
 														<option <c:if test="${ selectCategory == 'job' && selectValue == '팀장' }">selected</c:if>>팀장</option>
@@ -109,7 +104,8 @@ h4.section-title:hover {
 														<option <c:if test="${ selectCategory == 'job' && selectValue == '대리' }">selected</c:if>>대리</option>
 														<option <c:if test="${ selectCategory == 'job' && selectValue == '주임' }">selected</c:if>>주임</option>
 														<option <c:if test="${ selectCategory == 'job' && selectValue == '사원' }">selected</c:if>>사원</option>
-												</select></th>
+													</select>
+												</th>
 												<th>입사일</th>
 											</tr>
 										</thead>

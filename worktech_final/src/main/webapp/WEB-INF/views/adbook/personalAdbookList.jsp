@@ -28,6 +28,24 @@
         display: flex;
         justify-content: center;
 	}
+	
+	 table {
+            border-collapse: collapse;
+            background: white;
+        }
+
+        table th {
+/*             border-bottom: 1px solid #e3e3e3; */
+            text-align: center;
+            font-size: 15px;
+        }
+
+        table td {
+/*             border-bottom: 1px solid #e3e3e3; */
+            text-align: center;
+            font-size: 15px;
+        }
+	
 </style>
 </head>
 <body>
@@ -69,20 +87,20 @@
 							</div>
 
 							<div class="card-body">
-								<div>
+								<div style="float : right; margin-bottom: 15px;">
 									<button class="btn btn-icon icon-left btn-primary" onclick="addContact()">
 										<i class="far fa-edit"></i> 추가
-									</button>
+									</button>&nbsp;
 									<button class="btn btn-icon icon-left btn-danger" onclick="deleteContact()">
 										<i class="fas fa-times"></i> 삭제
 									</button>
 								</div>
 								<br>
-								<table class="table table-hover" id="pAdbookTable">
+								<table class="table table-striped" id="pAdbookTable">
 									<thead>
 										<tr>
 											<th scope="col">
-												<div class="custom-checkbox custom-control">
+												<div class="custom-checkbox custom-control" style="align : center;">
 													<input type="checkbox" class="custom-control-input" id="checkbox-all" onclick="clickAll();">
 													<label for="checkbox-all" class="custom-control-label">&nbsp;</label>
 												</div>
@@ -232,6 +250,7 @@
 			
 			open('pAdbookUpdateView.ab?adNo=' + adNo, '개인 주소록 수정', 'width=600px, height=650px, top=50px, left=400px');
 		});
+		
 		
 		// 개인 주소록 삭제
 		var pAdCheckbox = $('input[name=pAdCheckbox]');

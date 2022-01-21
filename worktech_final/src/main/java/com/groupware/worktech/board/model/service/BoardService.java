@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.groupware.worktech.board.model.dao.BoardDAO;
 import com.groupware.worktech.board.model.vo.Board;
 import com.groupware.worktech.board.model.vo.BoardFile;
+import com.groupware.worktech.board.model.vo.Category;
 import com.groupware.worktech.board.model.vo.Reply;
 import com.groupware.worktech.common.PageInfo;
 
@@ -300,13 +301,25 @@ public class BoardService {
 	
 	
 	// 화상 회의
-	public int getZListCount() {
-		return bDAO.getZListCount(sqlSession);
-	}
+		public int getZListCount() {
+			return bDAO.getZListCount(sqlSession);
+		}
 
-	public ArrayList<Board> selectZList(PageInfo pi) {
-		return bDAO.selectZList(sqlSession, pi);
-	}
+		public ArrayList<Board> selectZList(PageInfo pi) {
+			return bDAO.selectZList(sqlSession, pi);
+		}
+
+		public int zoomInsert(Board b) {
+			return bDAO.zoomInsert(sqlSession, b);
+		}
+
+		public Board selectZoom(int bNo) {
+			return bDAO.selectZoom(sqlSession, bNo);
+		}
+
+		public int zoomDelete(int bNo) {
+			return bDAO.zoomDelete(sqlSession, bNo);
+		}
 		
 	
 	
@@ -390,7 +403,7 @@ public class BoardService {
 	
 	
 	
-	// 익명 게시판
+	// �씡紐� 寃뚯떆�뙋
 	
 	public ArrayList<Board> selectAnonyList(PageInfo pi) {
 		return bDAO.selectAnonyList(pi, sqlSession);
@@ -453,6 +466,10 @@ public class BoardService {
 
 	public ArrayList<Board> selectAnonySearchList(HashMap<String, Object> searchListMap) {
 		return bDAO.selectAnonySearchList(sqlSession, searchListMap);
+	}
+
+	public ArrayList<Category> selectAllCategory() {
+		return bDAO.selectAllCategory(sqlSession);
 	}
 
 	

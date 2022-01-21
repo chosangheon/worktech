@@ -304,9 +304,9 @@
 
 	<script>
 		// todo 팝업
-    function openTodo() {
-       window.open('todo.to', '투두 리스트', 'width=1250px, height=850px');
-    }
+	    function openTodo() {
+	       window.open('todo.to', '투두 리스트', 'width=1250px, height=850px');
+	    }
 	</script>
 
 

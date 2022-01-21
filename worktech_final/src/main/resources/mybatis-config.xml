@@ -29,6 +29,7 @@
 		<typeAlias type="com.groupware.worktech.commut.model.vo.Commut" alias="Commut"/>
 		<typeAlias type="com.groupware.worktech.calendar.model.vo.Calendar" alias="Calendar"/>
 		<typeAlias type="com.groupware.worktech.todo.model.vo.ToDo" alias="Todo"/>
+		<typeAlias type="com.groupware.worktech.board.model.vo.Category" alias="Category"/>
 	</typeAliases>
 	
 	<mappers>

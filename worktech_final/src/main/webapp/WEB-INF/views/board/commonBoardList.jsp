@@ -99,15 +99,13 @@
                             <div class="card-body">
                             	<div class="category">
 	                            	<i class="fas fa-chevron-circle-down"></i>
-	                            	<select class="select" name="categoryNo" onchange="selectCategory(this)">
-	                            		<option selected disabled>카테고리</option>
-	                            		<option value="0">전체</option>
-	                            		<option value="100" <c:if test="${ category == 100 }">selected</c:if>>회의</option>
-	                            		<option value="200" <c:if test="${ category == 200 }">selected</c:if>>출장</option>
-	                            		<option value="300" <c:if test="${ category == 300 }">selected</c:if>>홍보</option>
-	                            		<option value="400" <c:if test="${ category == 400 }">selected</c:if>>기타</option>
-	                            		<option value="500" <c:if test="${ category == 500 }">selected</c:if>>자료</option>
-	                            	</select>
+									<select class="select" name="categoryNo" onchange="selectCategory(this)">
+										<option selected disabled>카테고리</option>
+										<option value="0">전체</option>
+										<c:forEach var="c" items="${ cList }">
+											<option value="${ c.categoryNo }" <c:if test="${ category == c.categoryNo }">selected</c:if>>${ c.categoryName }</option>
+										</c:forEach>
+									</select>
                             	</div>
                             	<br>
                                 <table class="table" id="tb">

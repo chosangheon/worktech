@@ -313,15 +313,15 @@
 		<result column="B_STATUS" property="bStatus"/>
 	</resultMap>
 	
+	<select id="selectAllCategory" resultMap="categoryResultSet">
+		select *
+		from category
+	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	<resultMap type="Category" id="categoryResultSet">
+		<id column="CATEGORY_NO" property="categoryNo"/>
+		<result column="CATEGORY_NAME" property="categoryName"/>
+	</resultMap>
 	
 	
 	

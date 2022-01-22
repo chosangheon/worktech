@@ -469,6 +469,7 @@ public class MemberController {
 								@RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("date") int date, 
 								@RequestParam("proImg") MultipartFile proImg, MultipartHttpServletRequest request) {
 		
+		Member loginUser = (Member)model.getAttribute("loginUser");
 		/*------------------------------ 주소 ------------------------------*/
 		m.setAddress(post + "/" + address1 + "/" + address2 + "/" + address3);
 		
@@ -479,6 +480,7 @@ public class MemberController {
 		/*------------------------------ 프로필 사진------------------------------*/
 		Profile profile = new Profile();
 		
+//		System.out.println(proImg);
 		if( proImg != null && !proImg.isEmpty() ) {
 		
 			HashMap<String, String> profileInfo = saveFile(proImg, request); 
@@ -493,11 +495,14 @@ public class MemberController {
 				int result = mService.updateProfile(profile);
 				if(result > 0) {
 //					System.out.println("프로필 사진 등록 성공");
+					profile = profile;
 				} else {
 					throw new MemberException("프로필 사진 등록에 실패하였습니다.");
 				}
 			}
 			
+		} else {
+			profile = loginUser.getProfile();
 		}
 		// 프로필 사진 경로
 		m.setProfile(profile);

@@ -106,8 +106,6 @@
                             <div class="card-header">
                                 <c:url var="adcoBoList" value="commonList.bo"/>
 								<h4 style="font-size: 20px;" class="section-title" onclick="location.href='${ adcoBoList }'">일반 게시판 목록</h4>
-                                
-<!--                                 <h4 style="font-size: 20px;">일반 게시판 목록</h4> -->
                             </div>
                             <div class="card-body">
                             	<div class="category">

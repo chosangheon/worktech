@@ -154,6 +154,10 @@ public class RvDAO {
 		return sqlSession.update("reservationMapper.updateMyOtherReservation");
 	}
 
+	public RvProduct getRvpInfo(SqlSessionTemplate sqlSession, int rvpNo) {
+		return sqlSession.selectOne("reservationMapper.getRvpInfo", rvpNo);
+	}
+
 
 
 

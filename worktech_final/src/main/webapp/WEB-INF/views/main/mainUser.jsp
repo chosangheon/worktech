@@ -350,7 +350,7 @@
 							<thead>
 								<tr >
 									<th style="font-size : 9pt;">이름</th>
-									<th style="font-size : 9pt;">전화번호</th>
+<!-- 									<th style="font-size : 9pt;">전화번호</th> -->
 									<th style="font-size : 9pt;">이메일</th>
 									<th style="font-size : 9pt;">부서</th>
 									<th style="font-size : 9pt;">직책</th>
@@ -360,7 +360,7 @@
 								<c:forEach var="a" items="${ list }">
 									<tr>
 										<td style="font-size : 9pt;">${ a.name }</td>
-										<td style="font-size : 9pt;">${ a.phone }</td>
+<%-- 										<td style="font-size : 9pt;">${ a.phone }</td> --%>
 										<td style="font-size : 9pt;">${ a.email }</td>
 										<td style="font-size : 9pt;">${ a.dName }</td>
 										<td style="font-size : 9pt;">${ a.jobGrade }</td>

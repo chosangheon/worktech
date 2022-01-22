@@ -93,6 +93,7 @@ public class MemberController {
 					QRCode qr = coService.getinfo(loginMember.getmNo());
 					
 					if(qr != null) {
+						System.out.println(qr);
 						model.addAttribute("qr", qr);
 					}
 					

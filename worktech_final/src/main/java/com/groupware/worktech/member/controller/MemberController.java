@@ -229,45 +229,46 @@ public class MemberController {
 
 	
 	// member 검색
-	@RequestMapping("searchMem.me")
-	public String searchMember(@RequestParam("searchCondition") String condition,
-							   @RequestParam("searchValue") String value,
-							   @RequestParam(value="page", required=false) Integer page, Model model ) {
-		
-		// 검색 조건 :  searchCondition | 검색 내용 : searchValue
-		HashMap<String, String> map = new HashMap<>();
-		map.put("condition", condition);
-		map.put("value", value);
-		
-		// 페이징 처리
-		int currentPage = 1;
-		
-		if(page != null) {
-			currentPage = page;
-		}
-		
-		// 기존 : 총 사원의 수
-		int memCount = mService.countMember();
-		
-		// 검색한 사원의  수
-		int listCount = mService.getSearchResultListCount(map);
-		// 페이딩 처리 계산
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		// 검색 결과
-		ArrayList<Member> mList = mService.selectSearchResultList(pi, map);
-		
-		if( mList != null ) {
-			model.addAttribute("mList", mList);
-			model.addAttribute("pi", pi);
-			model.addAttribute("searchCondition", condition);
-			model.addAttribute("searchValue", value);
-			model.addAttribute("memCount", memCount);
-		} else {
-			throw new MemberException("사원 목록 검색에 실패하였습니다.");
-		}
-		
-		return "adminMemList";
-	}
+	 @RequestMapping("searchMem.me")
+	    public String searchMember(@RequestParam("searchCondition") String condition,
+	                               @RequestParam("searchValue") String value,
+	                               @RequestParam(value="page", required=false) Integer page, Model model ) {
+	        
+	        // 검색 조건 :  searchCondition | 검색 내용 : searchValue
+	        HashMap<String, String> map = new HashMap<>();
+	        map.put("condition", condition);
+	        map.put("value", value);
+	        
+	        System.out.println(value);
+	        // 페이징 처리
+	        int currentPage = 1;
+	        
+	        if(page != null) {
+	            currentPage = page;
+	        }
+	        
+	        // 기존 : 총 사원의 수
+	        int memCount = mService.countMember();
+	        
+	        // 검색한 사원의  수
+	        int listCount = mService.getSearchResultListCount(map);
+	        // 페이딩 처리 계산
+	        PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+	        // 검색 결과
+	        ArrayList<Member> mList = mService.selectSearchResultList(pi, map);
+	        
+	        if( mList != null ) {
+	            model.addAttribute("mList", mList);
+	            model.addAttribute("pi", pi);
+	            model.addAttribute("searchCondition", condition);
+	            model.addAttribute("searchValue", value);
+	            model.addAttribute("memCount", memCount);
+	        } else {
+	            throw new MemberException("사원 목록 검색에 실패하였습니다.");
+	        }
+	        
+	        return "adminMemList";
+	    }
 
 	
 	// 사원 삭제 (개별)

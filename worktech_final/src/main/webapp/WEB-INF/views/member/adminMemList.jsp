@@ -121,7 +121,7 @@
 			                          </td>
 			                          <td  onclick="event.cancelBubble=true;"><b> - </b></td>
 			                          <td  onclick="event.cancelBubble=true;"><b> - </b></td>
-			                          <td  onclick="event.cancelBubble=true;"><button class="btn btn-secondary" id="updatePwd">비밀번호 변경</button></td>
+			                          <td  onclick="event.cancelBubble=true;"><button class="btn btn-primary" id="updatePwd">비밀번호 변경</button></td>
 			                        </tr>
 		                        </c:forEach>
 							</form>
@@ -140,7 +140,7 @@
 		                          <td id="depName">${ m.dName }</td> <!-- 부서 -->
 		                          <td id="dGrade">${ m.jobGrade }</td> <!-- 이름 -->
 <!-- 		                          <td><button class="btn btn-secondary" type="button" id="oneDelete">삭제</button></td> -->
-		                          <td onclick="event.cancelBubble=true;"><button class="btn btn-secondary" id="oneDelete">삭제</button></td>
+		                          <td onclick="event.cancelBubble=true;"><button class="btn btn-secondary" id="oneDelete" name="oneDelete">삭제</button></td>
 		                        </tr>
 	                        </c:forEach>
 	                      </table>
@@ -316,12 +316,16 @@
 		}
 	
 	/*------------------------------ 사원 목록 검색 ------------------------------*/
-	function searchBoard(){
-		var searchCondition = $("#searchCondition").val();
-		var searchValue = $("#searchValue").val();
-		
-		location.href="searchMem.me?searchCondition="+searchCondition+"&searchValue="+searchValue;
-	}
+	  function searchBoard(){
+        var searchCondition = $("#searchCondition").val();
+//         var searchValue = $("#searchValue").val();
+        var searchValue = $('input[name=searchValue]').val();
+//         console.log("ss");
+        console.log(searchValue);
+//         console.log(vv);
+    
+        location.href="searchMem.me?searchCondition="+searchCondition+"&searchValue="+searchValue;
+    }
 	
 	/*--------------------- 상세 페이지로 이동 : 클릭할수 있도록 만들기 ---------------------*/
 	$(function(){
@@ -338,7 +342,7 @@
 	
 	/*------------------------------ 개별 사원 삭제 ------------------------------*/
 	// .btn-secondary : 개별 삭제버튼 & 단체 삭제버튼
-	$('#oneDelete').click(function(){
+	$('.btn-secondary').click(function(){
 		var mNo =  $(this).parent().parent().children().eq(2).text(); // 사번이 찍히는것 확인했음
 		   
 		console.log(mNo);

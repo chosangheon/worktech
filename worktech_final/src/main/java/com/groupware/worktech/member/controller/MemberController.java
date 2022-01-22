@@ -81,7 +81,7 @@ public class MemberController {
 	@RequestMapping(value="login.me", method=RequestMethod.POST)
 	public String login(Member m, Model model, HttpServletRequest request) {	
 		
-//		System.out.println(bcrypt.encode(m.getPwd()));
+		System.out.println(bcrypt.encode(m.getPwd()));
 		
 		Member loginMember = mService.memberLogin(m);
 		
@@ -229,45 +229,46 @@ public class MemberController {
 
 	
 	// member 검색
-	@RequestMapping("searchMem.me")
-	public String searchMember(@RequestParam("searchCondition") String condition,
-							   @RequestParam("searchValue") String value,
-							   @RequestParam(value="page", required=false) Integer page, Model model ) {
-		
-		// 검색 조건 :  searchCondition | 검색 내용 : searchValue
-		HashMap<String, String> map = new HashMap<>();
-		map.put("condition", condition);
-		map.put("value", value);
-		
-		// 페이징 처리
-		int currentPage = 1;
-		
-		if(page != null) {
-			currentPage = page;
-		}
-		
-		// 기존 : 총 사원의 수
-		int memCount = mService.countMember();
-		
-		// 검색한 사원의  수
-		int listCount = mService.getSearchResultListCount(map);
-		// 페이딩 처리 계산
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		// 검색 결과
-		ArrayList<Member> mList = mService.selectSearchResultList(pi, map);
-		
-		if( mList != null ) {
-			model.addAttribute("mList", mList);
-			model.addAttribute("pi", pi);
-			model.addAttribute("searchCondition", condition);
-			model.addAttribute("searchValue", value);
-			model.addAttribute("memCount", memCount);
-		} else {
-			throw new MemberException("사원 목록 검색에 실패하였습니다.");
-		}
-		
-		return "adminMemList";
-	}
+	 @RequestMapping("searchMem.me")
+	    public String searchMember(@RequestParam("searchCondition") String condition,
+	                               @RequestParam("searchValue") String value,
+	                               @RequestParam(value="page", required=false) Integer page, Model model ) {
+	        
+	        // 검색 조건 :  searchCondition | 검색 내용 : searchValue
+	        HashMap<String, String> map = new HashMap<>();
+	        map.put("condition", condition);
+	        map.put("value", value);
+	        
+	        System.out.println(value);
+	        // 페이징 처리
+	        int currentPage = 1;
+	        
+	        if(page != null) {
+	            currentPage = page;
+	        }
+	        
+	        // 기존 : 총 사원의 수
+	        int memCount = mService.countMember();
+	        
+	        // 검색한 사원의  수
+	        int listCount = mService.getSearchResultListCount(map);
+	        // 페이딩 처리 계산
+	        PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+	        // 검색 결과
+	        ArrayList<Member> mList = mService.selectSearchResultList(pi, map);
+	        
+	        if( mList != null ) {
+	            model.addAttribute("mList", mList);
+	            model.addAttribute("pi", pi);
+	            model.addAttribute("searchCondition", condition);
+	            model.addAttribute("searchValue", value);
+	            model.addAttribute("memCount", memCount);
+	        } else {
+	            throw new MemberException("사원 목록 검색에 실패하였습니다.");
+	        }
+	        
+	        return "adminMemList";
+	    }
 
 	
 	// 사원 삭제 (개별)
@@ -468,6 +469,7 @@ public class MemberController {
 								@RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("date") int date, 
 								@RequestParam("proImg") MultipartFile proImg, MultipartHttpServletRequest request) {
 		
+		Member loginUser = (Member)model.getAttribute("loginUser");
 		/*------------------------------ 주소 ------------------------------*/
 		m.setAddress(post + "/" + address1 + "/" + address2 + "/" + address3);
 		
@@ -478,6 +480,7 @@ public class MemberController {
 		/*------------------------------ 프로필 사진------------------------------*/
 		Profile profile = new Profile();
 		
+//		System.out.println(proImg);
 		if( proImg != null && !proImg.isEmpty() ) {
 		
 			HashMap<String, String> profileInfo = saveFile(proImg, request); 
@@ -492,11 +495,14 @@ public class MemberController {
 				int result = mService.updateProfile(profile);
 				if(result > 0) {
 //					System.out.println("프로필 사진 등록 성공");
+					profile = profile;
 				} else {
 					throw new MemberException("프로필 사진 등록에 실패하였습니다.");
 				}
 			}
 			
+		} else {
+			profile = loginUser.getProfile();
 		}
 		// 프로필 사진 경로
 		m.setProfile(profile);
@@ -590,8 +596,8 @@ public class MemberController {
 					+ "<p>임시 비밀번호 : " + pw + "</p></div>";
 			
 			String host = "smtp.naver.com"; // 네이버에서 보내기(smtp.naver.com) | gmail에서 보내기 (smtp.gmail.com)
-			String sender = " "; // 실제 보내는 사람의 유효한 메일 [ ※ test시 각자의 naver/gmail 계정을 추가하세요 ]
-			String senderPwd= " "; // 그 메일의 실제 비밀번호  [ ※ test시 각자의 naver/gmail 계정의 비밀번호를 추가하세요 ]
+			String sender = "alswj792000@naver.com"; // 실제 보내는 사람의 유효한 메일 [ ※ test시 각자의 naver/gmail 계정을 추가하세요 ]
+			String senderPwd= "mIng@611218*"; // 그 메일의 실제 비밀번호  [ ※ test시 각자의 naver/gmail 계정의 비밀번호를 추가하세요 ]
 			
 			Properties prop = new Properties(); 
 			prop.setProperty("mail.smtp.host", host);
